@@ -4,7 +4,8 @@
 
 ```
 User story:
-As a user, I want to be able to locate restrooms and add them to a map database based on my impression and the facilities offered.
+As a user, I want to be able to locate restrooms and add them to a map
+database based on my impression and the facilities offered.
 
 ```
 
@@ -42,7 +43,8 @@ Finally, you must add your project to the portfolio that you created in Module 2
 Given I sam searching for good restrooms near me
 When I open the app, I am able to see the map markers with basic review information on the map
 When I hover over the marker, the information with rating and icons appears in the popup
- I am given options within a certain radius 
+When I search for restrooms
+I am given options within a certain radius 
 When I log into the app
 User authentication will occur and redirect to login if the inputs are not correct
 When I log in with the correct user inputs
@@ -54,12 +56,16 @@ I can see that each bathroom can have multiple reviews
 
 
 Model
-User
-Reviews (star rating as well as comments?)
+* User
+
+* Reviews (star rating as well as comments?)
 - Male, female, unisex
 - Changing tables
 - Menstruation products
-Map Markers (location info, lat, Lon)
+- disabled access
+- key
+
+* Map Markers (location info, lat, Lon)
 
 User has many reviews
 Reviews belongs to User
@@ -75,11 +81,14 @@ Reviews belongs to User
 Controller
 
 View
-Conditionally render icons on review property 
+
+- Conditionally render icons on review property 
+- scroll on modal for comments, average rating at top
 
 Confusions: But honestly we can work on this last
+
 - Searching within a specified radius
-- Map should know what current location is
+- Map should know what current location is (button to bring user camera back to current location)
 - https://docs.mapbox.com/mapbox-gl-js/example/locate-user/
 - https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/
 - Animate markers: https://docs.mapbox.com/mapbox-gl-js/example/animate-marker/
