@@ -1,50 +1,56 @@
-const {Model, DataTypes} = require('sequelize')
-const sequelize = require('../config/connection')
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
 class User extends Model {}
 
-User.init({
+User.init(
+  {
     id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
     username: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true
-        }
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            len: [4]
-        }
-    }
-}, 
-{ hooks: {
-    async beforeCreate(newUserData){
-        newUserData.password = await bcrypt.hash(newUserData.password, 10)
-        return newUserData
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [4],
+      },
     },
-    async beforeUpdate(updatedUserData){
-        updatedUserData.password= await bcrypt.hash(updatedUserData.password, 10)
-        return updatedUserData
-    }
-},
-sequelize,
-underscored: true,
-freezeTableName: true,
-timestamps: false,
-modelName: 'user'
-})
+  },
+  {
+    hooks: {
+      async beforeCreate(newUserData) {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      async beforeUpdate(updatedUserData) {
+        updatedUserData.password = await bcrypt.hash(
+          updatedUserData.password,
+          10
+        );
+        return updatedUserData;
+      },
+    },
+    sequelize,
+    underscored: true,
+    freezeTableName: true,
+    timestamps: false,
+    modelName: 'user',
+  }
+);
 
-module.exports = User
+module.exports = User;
