@@ -1,0 +1,22 @@
+.map {
+    text-align:center;
+    display: flex;
+  }
+  
+  #map {
+    align-items:center;
+    display: flex;
+    width: 50vw; 
+    height: 70vh;
+  }
+  
+  .map-title {
+    text-align:center;
+    padding-bottom: 40px;
+  }
+  
+  .map-space {
+    margin-top: 60px;
+  }
+
+  
