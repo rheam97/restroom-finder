@@ -4,7 +4,6 @@ const withAuth = require('../../utils/auth');
 const sequelize = require('../../config/connection');
 
 //get all reviews on one marker
-
 router.get('/:id', withAuth, (req, res) => {
   Marker.findOne({
     where: {
@@ -39,7 +38,7 @@ router.get('/:id', withAuth, (req, res) => {
         ],
   }).then(dbMarkerData=> {
       if(!dbMarkerData){
-          res.sendStatus(404).json({message: 'no marker found with this id.'})
+          res.sendStatus(404).json({message: 'No marker found with this id.'})
           return
       }
       res.json(dbMarkerData)
