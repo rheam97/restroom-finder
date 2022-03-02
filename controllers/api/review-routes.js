@@ -15,9 +15,7 @@ router.get('/', (req, res) => {
       'id',
       'review_rating',
       'review_text',
-      'title',
-      'male',
-      'female',
+      'gendered',
       'unisex',
       'disabled_access',
       'changing_tables',
@@ -54,13 +52,11 @@ router.get('/', (req, res) => {
 //add a review if loggedin
 router.post('/', withAuth, (req, res) => {
   Review.create({
-    title: req.body.title,
     review_rating: req.body.review_rating,
     review_text: req.body.review_text,
     marker_id: req.body.marker_id,
     user_id: req.session.user_id,
-    male: req.body.male,
-    female: req.body.female,
+    gendered: req.body.gendered,
     unisex: req.body.unisex,
     disabled_access: req.body.disabled_access,
     changing_tables: req.body.changing_tables,
@@ -74,11 +70,9 @@ router.post('/', withAuth, (req, res) => {
       attributes: [
         'id',
         'review_rating',
-        'title',
         'review_text',
         'user_id',
-        'male',
-        'female',
+        'gendered',
         'unisex',
         'disabled_access',
         'key',
@@ -107,6 +101,30 @@ router.post('/', withAuth, (req, res) => {
 });
 
 // get one review
+router.get('/:id', withAuth, (req, res)=> {
+    Review.findOne({
+        where: {
+            id: req.params.id
+        }, // do i include user id and marker id in attr?*****
+        attributes: ['id', 'review_text', 'review_rating', 'user_id', 'marker_id'],
+        include:[{
+            model: User,
+            attributes: ['username']
+        }, {
+            model: Marker,
+            attributes: ['title']
+        }]
+    }).then(dbReviewData=> {
+        if(!dbReviewData){
+            res.status(404).json({message: 'Review not found.'})
+            return
+        }
+        res.json(dReviewData)
+    }).catch(err=> {
+        console.log(err)
+        res.status(500).json(err)
+    })
+})
 
 //delete a review (only from loggedin user)**will this delete on the users own reviews?
 router.delete('/:id', withAuth, (req, res)=> {

@@ -16,9 +16,7 @@ router.get('/:id', withAuth, (req, res) => {
         attributes: [
           'id',
           'review_rating',
-          'title',
-          'male',
-          'female',
+        'gendered',
           'unisex',
           'disabled_access',
           'changing_tables',

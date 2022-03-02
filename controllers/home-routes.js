@@ -11,7 +11,7 @@ router.get('/', (req,res)=> {
         include: [
             {
                 model: Review,
-                attributes: ['id', 'review_rating', 'title', 'male', 'female', 'unisex', 'disabled_access', 'changing_tables', 'key', 'menstruation_products'],
+                attributes: ['id', 'review_rating',  'gendered', 'unisex', 'disabled_access', 'changing_tables', 'key', 'menstruation_products'],
                 include: {
                   model: User,
                   attributes: ['username']
