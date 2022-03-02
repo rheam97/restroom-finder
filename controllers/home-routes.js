@@ -3,11 +3,11 @@ const sequelize = require('../config/connection')
 const {Review, User, Marker} = require('../models')
 
 
-// non loggedin users homepage gets all markers
+// non loggedin users homepage gets all markers on the map
 router.get('/', (req,res)=> {
     console.log(req.session)
     Marker.findAll({
-        attributes: ['id', 'title'],
+        attributes: ['id', 'title', 'lat', 'lon'],
         include: [
             {
                 model: Review,
