@@ -7,6 +7,7 @@ center: [-77.03, 38.90], // starting position
 zoom: 17, // starting zoom
 });
 map.addControl(new mapboxgl.NavigationControl());
+
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
 positionOptions: {
@@ -22,7 +23,7 @@ const marker = new mapboxgl.Marker({
 color: "red",
 draggable: false,
 })
-.setLngLat([geolocate])
+.setLngLat([-77.03, 38.90])
 .addTo(map);
    
   // Add the geocoder to the map
@@ -68,24 +69,9 @@ if (city) {
 }
 };
 
-function onShowPOI(data) {
-    let poi = document.getElementById("poi");
-    poi.innerHTML = "";
-    if (data.preview) {
-      poi.innerHTML += `<img src="${data.preview.source}">`;
-    }
-    poi.innerHTML += data.wikipedia_extracts
-      ? data.wikipedia_extracts.html
-      : data.info
-      ? data.info.descr
-      : "No description";
-  
-    poi.innerHTML += `<p><a target="_blank" href="${data.otm}">Show more at OpenTripMap</a></p>`;
-
 //sets map to Point of Interest and plants a marker
 map.jumpTo({
     center: [data.point.lon, data.point.lat],
     zoom: 17,
   });
   marker.setLngLat([data.point.lon, data.point.lat]);
-}
