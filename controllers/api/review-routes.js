@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
           attributes: ['username'],
         },
       },
-      {
+      { // do i need these?****
         model: User,
         attributes: ['username'],
       },
@@ -108,11 +108,15 @@ router.get('/:id', withAuth, (req, res)=> {
         }, // do i include user id and marker id in attr?*****
         attributes: ['id', 'review_text', 'review_rating', 'user_id', 'marker_id'],
         include:[{
+            model: Marker,
+            attributes: ['title'], 
+            include: {
+                model: User,
+                attributes: ['username']
+            }
+        }, {
             model: User,
             attributes: ['username']
-        }, {
-            model: Marker,
-            attributes: ['title']
         }]
     }).then(dbReviewData=> {
         if(!dbReviewData){
