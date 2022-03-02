@@ -11,15 +11,7 @@ Review.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    male: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    female: {
+    gendered: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },

@@ -106,8 +106,9 @@ router.post('/', withAuth, (req, res) => {
   })
 });
 
-//delete a review (only from loggedin user)**will this delete on the users own reviews?
+// get one review
 
+//delete a review (only from loggedin user)**will this delete on the users own reviews?
 router.delete('/:id', withAuth, (req, res)=> {
     Review.destroy({
         where: {
