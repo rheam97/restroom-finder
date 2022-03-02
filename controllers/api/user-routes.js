@@ -4,7 +4,6 @@ const withAuth = require('../../utils/auth')
 const sequelize = require('../../config/connection')
 
 // create new user
-
 router.post('/', withAuth, (req, res)=> {
     User.create({
         username: req.body.username,
