@@ -24,19 +24,6 @@ draggable: false,
 })
 .setLngLat([geolocate])
 .addTo(map);
-
-const geocoder = new MapboxGeocoder({
-  // Initialize the geocoder
-  accessToken: mapboxgl.accessToken, // Set the access token
-  mapboxgl: mapboxgl, // Set the mapbox-gl instance
-  marker: false, // Do not use the default marker style
-  placeholder: '       Search Locations', // Placeholder text for the search bar
-  bbox: [-77.03, 38.90], // Boundary for DC
-  proximity: {
-  longitude: -77.03,
-  latitude: 38.90  
-  } // Coordinates of DC
-  });
    
   // Add the geocoder to the map
   map.addControl(geocoder);
