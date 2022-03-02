@@ -25,7 +25,7 @@ router.get('/', (req,res)=> {
         
     }).then(dbMarkerData=> {
         const markers = dbMarkerData.map(marker=> marker.get({plain: true}))
-        res.render('homepage', {
+        res.render('', {
             markers,
             loggedIn: req.session.loggedIn})
     }).catch(err=> {
