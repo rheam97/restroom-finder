@@ -25,15 +25,9 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Marker,
-        attributes: ['id', 'title', 'lat', 'lon'],
-        include: {
-          model: User,
-          attributes: ['username'],
-        },
       },
-      { // do i need these?****
-        model: User,
-        attributes: ['username'],
+      { // do i need these?****// check to see if attr is needed
+        model: User
       },
     ],
   })
@@ -105,7 +99,7 @@ router.get('/:id', withAuth, (req, res)=> {
     Review.findOne({
         where: {
             id: req.params.id
-        }, // do i include user id and marker id in attr?*****
+        }, // this is what is returned to the front
         attributes: ['id', 'review_text', 'review_rating', 'user_id', 'marker_id'],
         include:[{
             model: Marker,

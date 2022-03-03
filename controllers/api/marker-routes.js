@@ -46,7 +46,7 @@ router.get('/:id', withAuth, (req, res) => {
 })
 });
 
-//add marker if logged in, *** do i add user_id?
+//add marker if logged in
 router.post('/', withAuth, (req, res)=> {
     Marker.create({
         title: req.body.title,
