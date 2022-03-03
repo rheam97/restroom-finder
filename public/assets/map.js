@@ -3,7 +3,7 @@ mapboxgl.accessToken =
 let map = new mapboxgl.Map({
 container: "map", //Container ID
 style: "mapbox://styles/olopez92084/cky6s06631d4p15o1kb7ut2qq", //style URL
-center: [-77.03, 38.90], // starting position
+center: [-77.03653127987717, 38.89876926362938], // starting position
 zoom: 14, // starting zoom
 });
 
@@ -23,7 +23,7 @@ var geojson = {
 {
   type: 'Feature',
   geometry: {
-    type: 'Point',
+    type: 'Marker',
     coordinates: [-77.0444, 38.937]
   },
   properties: {
@@ -34,7 +34,7 @@ var geojson = {
 {
   type: 'Feature',
   geometry: {
-    type: 'Point',
+    type: 'Marker',
     coordinates: [-77.0454, 38.941]
   },
   properties: {
@@ -45,7 +45,40 @@ var geojson = {
 {
   type: 'Feature',
   geometry: {
-    type: 'Point',
+    type: 'Marker',
+    coordinates: [-77.03653127987717, 38.89876926362938]
+  },
+  properties: {
+    title: 'Mapbox',
+    description: "White House B/R"
+  }
+},
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Marker',
+    coordinates: [-77.03853127987717, 38.89976926362938]
+  },
+  properties: {
+    title: 'Mapbox',
+    description: "Toilet"
+  }
+},
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Marker',
+    coordinates: [-77.03823127987717, 38.89676926362938]
+  },
+  properties: {
+    title: 'Mapbox',
+    description: "Toilet"
+  }
+},
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Marker',
     coordinates: [-77.04, 38.931]
   },
   properties: {
