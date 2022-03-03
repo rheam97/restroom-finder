@@ -30,10 +30,10 @@ Review.init(
         key: 'id',
       },
     },
-    marker_id: {
+    bathroom_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'marker',
+        model: 'bathroom',
         key: 'id',
       },
     },

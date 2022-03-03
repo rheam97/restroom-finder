@@ -21,14 +21,6 @@ Bathroom.init({
               isUrl: true
           }
       },
-      // lat: {
-      //     type: DataTypes.DECIMAL,
-      //     allowNull: false
-      // },
-      // lon: {
-      //   type: DataTypes.DECIMAL,
-      //   allowNull: false
-      // },
       gendered: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -65,7 +57,7 @@ Bathroom.init({
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'post'
+        modelName: 'bathroom'
       }
 )
 
