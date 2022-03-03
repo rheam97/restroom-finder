@@ -43,7 +43,7 @@ router.post('/', withAuth, (req, res) => {
   Review.create({
     review_rating: req.body.review_rating,
     review_text: req.body.review_text,
-    marker_id: req.body.marker_id,
+    marker_id: req.body.marker_id, // will need to changed this to srid
     user_id: req.session.user_id
   }).then(() => {
     return Review.findOne({
