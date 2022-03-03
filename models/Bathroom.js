@@ -1,9 +1,9 @@
 const {Model, DataTypes} = require('sequelize')
 const sequelize = require('../config/connection')
 
-class Marker extends Model {}
+class Bathroom extends Model {}
 
-Marker.init({
+Bathroom.init({
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -21,14 +21,14 @@ Marker.init({
               isUrl: true
           }
       },
-      lat: {
-          type: DataTypes.DECIMAL,
-          allowNull: false
-      },
-      lon: {
-        type: DataTypes.DECIMAL,
-        allowNull: false
-      },
+      // lat: {
+      //     type: DataTypes.DECIMAL,
+      //     allowNull: false
+      // },
+      // lon: {
+      //   type: DataTypes.DECIMAL,
+      //   allowNull: false
+      // },
       gendered: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -69,4 +69,4 @@ Marker.init({
       }
 )
 
-module.exports = Marker
+module.exports =  Bathroom
