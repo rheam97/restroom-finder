@@ -14,6 +14,13 @@ Marker.init({
         type: DataTypes.STRING,
         allowNull: false,
       },
+      image_url: {
+          type: DataTypes.STRING,
+          allowNull: true,
+          validate: {
+              isUrl: true
+          }
+      },
       lat: {
           type: DataTypes.DECIMAL,
           allowNull: false
