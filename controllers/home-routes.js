@@ -2,7 +2,7 @@ const router = require('express').Router()
 const sequelize = require('../config/connection')
 const {Review, User, Marker} = require('../models')
 
-
+// may need to get fetch to geojson instead
 // non loggedin users homepage gets all markers on the map
 router.get('/', (req,res)=> {
     console.log(req.session)
