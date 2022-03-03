@@ -1,6 +1,6 @@
 mapboxgl.accessToken =
 "pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg";
-let map = new mapboxgl.Map({
+const map = new mapboxgl.Map({
 container: "map", //Container ID
 style: "mapbox://styles/olopez92084/cky6s06631d4p15o1kb7ut2qq", //style URL
 center: [-77.03653127987717, 38.89876926362938], // starting position
@@ -16,8 +16,8 @@ var geojson = {
         coordinates: [-77.0312, 38.9111]
       },
       properties: {
-        title: 'Mapbox',
-        description: 'Toilet'
+        title: 'Port-A-John',
+        location: 'Q st NW'
       }
     },
 {
@@ -27,8 +27,8 @@ var geojson = {
     coordinates: [-77.0444, 38.937]
   },
   properties: {
-    title: 'Mapbox',
-    description: "Washroom"
+    title: 'Port-A-John',
+    location: "Pinay Branch Park"
   }
 },
 {
@@ -38,8 +38,8 @@ var geojson = {
     coordinates: [-77.0454, 38.941]
   },
   properties: {
-    title: 'Mapbox',
-    description: "Starbucks B/R"
+    title: 'Public Restroom',
+    location: "Upshur St NW"
   }
 },
 {
@@ -49,8 +49,8 @@ var geojson = {
     coordinates: [-77.03653127987717, 38.89876926362938]
   },
   properties: {
-    title: 'Mapbox',
-    description: "White House B/R"
+    title: 'Public Restroom',
+    location: "White House B/R"
   }
 },
 {
@@ -60,8 +60,8 @@ var geojson = {
     coordinates: [-77.03853127987717, 38.89976926362938]
   },
   properties: {
-    title: 'Mapbox',
-    description: "Toilet"
+    title: 'Public Restroom',
+    location: "Blair House Office"
   }
 },
 {
@@ -71,8 +71,19 @@ var geojson = {
     coordinates: [-77.03823127987717, 38.89676926362938]
   },
   properties: {
-    title: 'Mapbox',
-    description: "Toilet"
+    title: 'Public Restroom',
+    location: "Eisenhower Office Complex"
+  }
+},
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Marker',
+    coordinates: [-77.040167, 38.896114]
+  },
+  properties: {
+    title: 'Portable',
+    location: "NY Ave NW"
   }
 },
 {
@@ -82,8 +93,8 @@ var geojson = {
     coordinates: [-77.04, 38.931]
   },
   properties: {
-    title: 'Mapbox',
-    description: "Port-A-John"
+    title: 'Public Restroom',
+    location: "Kilbourne Pl NW"
   }
 }
 ]
@@ -97,10 +108,22 @@ geojson.features.forEach(function(marker) {
 //make a marker for each feature and add to the map
 new mapboxgl.Marker(el)
 .setLngLat(marker.geometry.coordinates)
+.setPopup(new mapboxgl.Popup({ offset: 25 })
+.setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.location + '</p>'))
 .addTo(map);
 });
 
 map.addControl(new mapboxgl.NavigationControl());
+
+map.on('mousemove', (e) => {
+  //document.getElementById('info').innerHTML =
+  // `e.point` is the x, y coordinates of the `mousemove` event
+  // relative to the top-left corner of the map.
+  JSON.stringify(e.point) +
+  '<br />' +
+  // `e.lngLat` is the longitude, latitude geographical position of the event.
+  JSON.stringify(e.lngLat.wrap());
+  });
 
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
@@ -120,15 +143,15 @@ map.addControl(geolocate);
 // .setLngLat([-77.05, 38.90])
 // .addTo(map);
 
-var marker = new mapboxgl.Marker();
+// var marker = new mapboxgl.Marker();
 
-function add_marker (event) {
-  var coordinates = event.lngLat;
-  console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
-  marker.setLngLat(coordinates).addTo(map);
-}
+// function add_marker (event) {
+//   var coordinates = event.lngLat;
+//   console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+//   marker.setLngLat(coordinates).addTo(map);
+// }
 
-map.on('click', add_marker);
+// map.on('click', add_marker);
    
   // Add the geocoder to the map
   // map.addControl(geocoder);
@@ -175,15 +198,15 @@ map.on('click', add_marker);
 
 //sets map to Point of Interest and plants a marker
 
-const mapGeo = L.mapbox.map('map_geo')
-  .setView([37.8, -96], 4)
-  .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/light-v10'));
+// const mapGeo = L.mapbox.map('map_geo')
+//   .setView([37.8, -96], 4)
+//   .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/light-v10'));
 
-const myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapGeo);
-mapGeo.scrollWheelZoom.disable();
+// const myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapGeo);
+// mapGeo.scrollWheelZoom.disable();
 
-map.jumpTo({
-    center: [data.point.lon, data.point.lat],
-    zoom: 17,
-  });
-  marker.setLngLat([data.point.lon, data.point.lat]);
+// map.jumpTo({
+//     center: [data.point.lon, data.point.lat],
+//     zoom: 17,
+//   });
+//   marker.setLngLat([data.point.lon, data.point.lat]);

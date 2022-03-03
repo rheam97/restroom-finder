@@ -25,6 +25,7 @@
     "express-session": "^1.17.2",
     "maki": "^2.1.0",
     "mysql2": "^2.3.3",
+    "node-geocoder": "^4.0.0",
     "sequelize": "^6.17.0"
   },
   "devDependencies": {
