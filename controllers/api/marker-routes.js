@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Review, User, Marker } = require('../../models');
-const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 
 //get all reviews on one marker
