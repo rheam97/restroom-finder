@@ -49,7 +49,7 @@ Map.init(
        this.location = {
           type: 'Point',
           formattedAddress: loc[0].formattedAddress,
-          coordinates: {lon, lat}
+          coordinates: [loc[0].longitude, loc[0].latitude]
         };
       
         return newMapData, next()

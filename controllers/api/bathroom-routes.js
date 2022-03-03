@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const { Review, User, Bathroom } = require('../../models');
+const { Review, User, Bathroom, Map } = require('../../models');
 const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 
-//get all reviews on one marker
+//get all reviews on one bathroom
 router.get('/:id', withAuth, (req, res) => {
-  Marker.findOne({
+  Bathroom.findOne({
     where: {
       id: req.params.id,
     },
-    attributes: ['id', 'title', 'image_url', 'lat', 'lon', 'gendered',
+    attributes: ['id', 'title', 'image_url', 'gendered',
     'unisex',
     'disabled_access',
     'changing_tables',
@@ -18,11 +18,6 @@ router.get('/:id', withAuth, (req, res) => {
     include: [
       {
         model: Review,
-        attributes: [
-          'id',
-          'review_rating',
-          'review_text',
-        ],
         include: {
             Model: User,
             attributes: ['username'],
@@ -47,10 +42,8 @@ router.get('/:id', withAuth, (req, res) => {
 
 //add marker if logged in
 router.post('/', withAuth, (req, res)=> {
-    Marker.create({
+    Bathroom.create({
         title: req.body.title,
-        lat: req.body.lat,
-        lon: req.body.lon,
         user_id: req.session.user_id,
         gendered: req.body.gendered,
         unisex: req.body.unisex,
@@ -59,9 +52,9 @@ router.post('/', withAuth, (req, res)=> {
         key: req.body.key,
         menstruation_products: req.body.menstruation_products
     }).then(()=> {
-        Marker.findOne({
+        Bathroom.findOne({
             where: {
-                id: req.body.marker_id
+                id: req.body.bathroom_id
             } // may need to add attr.
         }).then(dbMarkerData=> {
             res.json(dbMarkerData)
