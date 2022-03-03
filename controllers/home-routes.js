@@ -7,19 +7,16 @@ const {Review, User, Marker} = require('../models')
 router.get('/', (req,res)=> {
     console.log(req.session)
     Marker.findAll({
-        attributes: ['id', 'title', 'lat', 'lon'],
+        attributes: ['id', 'title', 'lat', 'lon', 'gendered',
+        'unisex',
+        'disabled_access',
+        'changing_tables',
+        'key',
+        'menstruation_products'],
         include: [
             {
                 model: Review,
-                attributes: ['id', 'review_rating', 'title', 'male', 'female', 'unisex', 'disabled_access', 'changing_tables', 'key', 'menstruation_products'],
-                include: {
-                  model: User,
-                  attributes: ['username']
-                }
-            },
-            {
-                model: User,
-                attributes: ['username']
+                attributes: ['id', 'review_rating']
             }
         ]
         

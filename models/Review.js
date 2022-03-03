@@ -11,30 +11,6 @@ Review.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    gendered: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    unisex: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    disabled_access: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    key: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    changing_tables: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    menstruation_products: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
     review_text: {
       type: DataTypes.STRING(200),
       allowNull: true,

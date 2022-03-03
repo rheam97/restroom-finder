@@ -9,21 +9,18 @@ router.get('/:id', withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ['id', 'title', 'lat', 'lon'],
+    attributes: ['id', 'title', 'image_url', 'lat', 'lon', 'gendered',
+    'unisex',
+    'disabled_access',
+    'changing_tables',
+    'key',
+    'menstruation_products'],
     include: [
       {
         model: Review,
         attributes: [
           'id',
           'review_rating',
-          'title',
-          'male',
-          'female',
-          'unisex',
-          'disabled_access',
-          'changing_tables',
-          'key',
-          'menstruation_products',
           'review_text',
         ],
         include: {
@@ -48,19 +45,24 @@ router.get('/:id', withAuth, (req, res) => {
 })
 });
 
-//add marker if logged in, *** do i add user_id?
+//add marker if logged in
 router.post('/', withAuth, (req, res)=> {
     Marker.create({
         title: req.body.title,
         lat: req.body.lat,
         lon: req.body.lon,
-        user_id: req.session.user_id
+        user_id: req.session.user_id,
+        gendered: req.body.gendered,
+        unisex: req.body.unisex,
+        disabled_access: req.body.disabled_access,
+        changing_tables: req.body.changing_tables,
+        key: req.body.key,
+        menstruation_products: req.body.menstruation_products
     }).then(()=> {
         Marker.findOne({
             where: {
                 id: req.body.marker_id
-            },
-            attributes: ['id', 'title', 'lat', 'lon']
+            } // may need to add attr.
         }).then(dbMarkerData=> {
             res.json(dbMarkerData)
         })
