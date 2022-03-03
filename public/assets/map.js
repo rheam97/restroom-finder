@@ -1,51 +1,72 @@
 mapboxgl.accessToken =
 "pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg";
-
-const geojson = {
-  'type': 'FeatureCollection',
-  'features': [
-  {
-  'type': 'Feature',
-  'properties': {
-  'message': 'Foo',
-  'iconSize': [60, 60]
-  },
-  'geometry': {
-  'type': 'Point',
-  'coordinates': [-66.324462, -16.024695]
-  }
-  },
-  {
-  'type': 'Feature',
-  'properties': {
-  'message': 'Bar',
-  'iconSize': [50, 50]
-  },
-  'geometry': {
-  'type': 'Point',
-  'coordinates': [-61.21582, -15.971891]
-  }
-  },
-  {
-  'type': 'Feature',
-  'properties': {
-  'message': 'Restroom',
-  'iconSize': [-77.03, 38.90]
-  },
-  'geometry': {
-  'type': 'Point',
-  'coordinates': [-63.292236, -18.281518]
-  }
-  }
-  ]
-  };
-
-const map = new mapboxgl.Map({
+let map = new mapboxgl.Map({
 container: "map", //Container ID
 style: "mapbox://styles/olopez92084/cky6s06631d4p15o1kb7ut2qq", //style URL
 center: [-77.03, 38.90], // starting position
-zoom: 17, // starting zoom
+zoom: 14, // starting zoom
 });
+
+var geojson = {
+    type: 'FeatureCollection',
+    features: [{
+      type: 'Feature',
+      geometry: {
+        type: 'Marker',
+        coordinates: [-77.0312, 38.9111]
+      },
+      properties: {
+        title: 'Mapbox',
+        description: 'Toilet'
+      }
+    },
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [-77.0444, 38.937]
+  },
+  properties: {
+    title: 'Mapbox',
+    description: "Washroom"
+  }
+},
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [-77.0454, 38.941]
+  },
+  properties: {
+    title: 'Mapbox',
+    description: "Starbucks B/R"
+  }
+},
+{
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [-77.04, 38.931]
+  },
+  properties: {
+    title: 'Mapbox',
+    description: "Port-A-John"
+  }
+}
+]
+};
+
+//add markers to map
+geojson.features.forEach(function(marker) {
+  //create a html element for each feature
+  var el = document.createElement('div');
+  el.className = 'marker';
+//make a marker for each feature and add to the map
+new mapboxgl.Marker(el)
+.setLngLat(marker.geometry.coordinates)
+.addTo(map);
+});
+
 map.addControl(new mapboxgl.NavigationControl());
 
 // Initialize the GeolocateControl.
@@ -55,40 +76,30 @@ positionOptions: {
 },
 trackUserLocation: true,
 });
-// Add the control to the map.
+//  Add the control to the map.
 map.addControl(geolocate);
 
 // Set marker options.
-const marker = new mapboxgl.Marker({
-color: "red",
-draggable: false,
-})
-.setLngLat([-77.03, 38.90])
-.addTo(map);
+// const marker = new mapboxgl.Marker({
+// color: "red",
+// draggable: false,
+// })
+// .setLngLat([-77.05, 38.90])
+// .addTo(map);
+
+var marker = new mapboxgl.Marker();
+
+function add_marker (event) {
+  var coordinates = event.lngLat;
+  console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+  marker.setLngLat(coordinates).addTo(map);
+}
+
+map.on('click', add_marker);
    
   // Add the geocoder to the map
-  map.addControl(geocoder);
+  // map.addControl(geocoder);
 
-  for (const marker of geojson.features) {
-    // Create a DOM element for each marker.
-    const el = document.createElement('div');
-    const width = marker.properties.iconSize[0];
-    const height = marker.properties.iconSize[1];
-    el.className = 'marker';
-    el.style.backgroundImage = `url(https://placekitten.com/g/${width}/${height}/)`;
-    el.style.width = `5px`;
-    el.style.height = `5px`;
-    el.style.backgroundSize = '100%';
-     
-    el.addEventListener('click', () => {
-    window.alert(marker.properties.message);
-    });
-     
-    // Add markers to the map.
-    new mapboxgl.Marker(el)
-    .setLngLat(marker.geometry.coordinates)
-    .addTo(map);
-    }
 // //initiates the series of processes which run once the search is run on the webpage. If a text is entered in the input field, a search is performed
 // var formSubmitHandler = function (event) {
 // // prevent page from refreshing
@@ -130,23 +141,6 @@ draggable: false,
 // };
 
 //sets map to Point of Interest and plants a marker
-
-// const geojson = [
-//   {
-//     type: 'Feature',
-//     geometry: {
-//       type: 'Point',
-//       coordinates: [-77.031952, 38.913184]
-//     }
-//   },
-//   {
-//     type: 'Feature',
-//     geometry: {
-//       type: 'Point',
-//       coordinates: [-122.413682, 37.775408]
-//     }
-//   }
-// ];
 
 const mapGeo = L.mapbox.map('map_geo')
   .setView([37.8, -96], 4)
