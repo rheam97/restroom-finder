@@ -1,3 +1,4 @@
+
 mapboxgl.accessToken =
 "pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg";
 const map = new mapboxgl.Map({
@@ -7,7 +8,7 @@ center: [-77.03653127987717, 38.89876926362938], // starting position
 zoom: 14, // starting zoom
 });
 
-var geojson = {
+var markers = {
     type: 'FeatureCollection',
     features: [{
       type: 'Feature',
@@ -100,6 +101,32 @@ var geojson = {
 ]
 };
 
+async function fetchBathrooms(markers){
+  const response = await fetch('/api/bathrooms')
+  // const bathrooms = await response.json()
+  //  markers.features.forEach( (markers, bathrooms) =>{
+  //   markers.properties.id = bathrooms.bathroom_id;
+  //   })
+}
+
+
+//on map load // add bathroom id to each marker
+// may not need a marker model, just add lat and lon to bathroom 
+// in this case get all bathrooms and render markers with lat and lon from bathrooms
+map.on('load', () => {
+  /* Add the data to your map as a layer */
+
+  map.addLayer({
+    id: 'locations',
+    type: '',
+    /* Add a GeoJSON source containing place coordinates and information. */
+    source: {
+      type: 'geojson',
+      data: markers
+    }
+  });
+});
+
 
 
 
@@ -119,9 +146,7 @@ new mapboxgl.Marker(el)
 
 map.addControl(new mapboxgl.NavigationControl());
 
-//on map load // add bathroom id to each marker
-// may not need a marker model, just add lat and lon to bathroom 
-// in this case get all bathrooms and render markers with lat and lon from bathrooms
+
 
 //layer needs to match layer name wih markers 
 map.on('click', 'layer', (e)=> {
