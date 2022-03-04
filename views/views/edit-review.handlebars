@@ -1,0 +1,24 @@
+  <a href="/"> &larr; Back to map</a>
+<article>
+
+  <h2>
+    Edit Review
+  </h2>
+  <form class="edit-post-form">
+    <div>
+      <input name="review_text" type="text" value="{{review.review_text}}" />
+    </div>
+    <div class="slidecontainer">
+        <input type="range" min="1" max="5" value="{{review.review_rating}}" class="slider" id="review_rating">
+    </div>
+    <div>
+      by you on {{format_date post.created_at}}
+    </div>
+    <button type="submit">Save review</button>
+    <button type="button" class="delete-post-btn">Delete review</button>
+  </form>
+</article>
+
+{{!-- <script src="/javascript/edit-post.js"></script>
+<script src="/javascript/delete-post.js"></script>
+<script src="/javascript/comment.js"></script> --}}

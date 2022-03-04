@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restroom Finder</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+    <header class="mx-3 mt-3">
+        <h1>
+        RESTROOM FINDER <img src="./Toilet.png" style="height:2rem">
+        </h1>
+        <nav class="columns">
+            <a href="/" class="column is-1">Home</a>
+            {{#if loggedIn}}
+            <a href="/favorite" class="column is-1">FAVS</a>
+            <a href="/review" class="column is-1">REVIEWS</a>
+            <button id="logout" class=" column is-1 is-offset-8 btn-no-style">LOGOUT</button>
+            {{else}}
+            <a href="/login" class="column is-1">FAVS</a>
+            <a href="/login" class="column is-1">REVIEWS</a>
+            <a href="/login" class=" column is-1 is-offset-8 btn-no-style">Login</a> -->
+            {{/if}}
+        </nav>
+    </header>
+    <div class="wrapper">
+    <main>
+      {{{ body }}}
+    </main>
+    <footer>
+      Thanks for visiting!
+      <p>&copy; R.O.W / Last Updated: 03/02/2022</p>
+    </footer>
+  </div>
+    {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+    {{/if}}
+</body>
+
+</html>
