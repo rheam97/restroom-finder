@@ -1,0 +1,13 @@
+      <article class="article">
+        <a href="/review/edit/{{id}}">
+          <div class="article-info">
+              Posted by <span>{{user.username}}</span> {{format_date created_at}}
+          </div>
+          <div class = "article-content">
+              <p>{{review_text}}</p>
+              <div class = "article-rates">
+                Rating: {{review_rating}}
+              </div>
+          </div>
+        </a>
+      </article>

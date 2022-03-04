@@ -1,0 +1,35 @@
+<div class="side-bar-info">
+            <div class="restroom-name">
+                {{marker.title}}
+                </div>
+                {{!-- check image url --}}
+            <img src={{marker.image_url}} alt="Restroom pic">
+            <div class="address-bar">
+                {{marker.address}}
+            </div>
+                <div class="pictogram">
+                    {{marker.gendered}}
+                    {{marker.unisex}}
+                    {{marker.disabled_access}}
+                    {{marker.key}}
+                    {{marker.changing_tables}}
+                    {{marker.menstruation_products}}
+                </div>
+            <div class="rating">
+                <p>Rating:</p> 
+                <span class="score">
+                <!-- function returning average score should go in here -->
+                </span>
+                / 5.0
+            </div>
+            <div class="review-section">
+                <p>Reviews:</p>
+                <ol class="review-list">
+                {{#each reviews as |review|}}
+                <div>
+                    {{> review-list review}}
+                </div>
+                {{/each}}
+                </ol>
+            </div>
+        </div>
