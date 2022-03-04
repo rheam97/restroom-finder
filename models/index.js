@@ -37,6 +37,7 @@ foreignKey: 'user_id'
 
 Bathroom.hasMany(Review, {
   foreignKey: 'bathroom_id',
+  onDelete: 'SET NULL'
 });
 
 Review.belongsTo(Bathroom, {

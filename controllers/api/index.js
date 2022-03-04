@@ -5,6 +5,6 @@ router.use('/users', userRoutes)
 router.use('/reviews', reviewRoutes)
 const bathroomRoutes = require('./bathroom-routes');
 
-router.use('/markers', bathroomRoutes);
+router.use('/bathrooms', bathroomRoutes);
 
 module.exports= router

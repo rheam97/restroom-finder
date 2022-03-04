@@ -4,6 +4,7 @@ const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 // get all bathrooms on map load
 router.get('/', (req, res) => {
+  console.log('**success')
     Bathroom.findAll({
       attributes: [
         'id',
@@ -21,15 +22,12 @@ router.get('/', (req, res) => {
       include: [
         {
           model: Review,
-          attributes: ['review_rating', 'review_text'],
           include: {
-            model: User,
-            attributes: ['username'],
-          },
+            model: User
+          }
         },
         {
-          model: User,
-          attributes: 'username',
+          model: User
         },
       ]
     }).then((dbBathroomData) => {
@@ -39,6 +37,7 @@ router.get('/', (req, res) => {
     res.status(500).json(err);
   });
 })
+
 //get all reviews on one bathroom
 router.get('/:id', withAuth, (req, res) => {
   Bathroom.findOne({
@@ -62,13 +61,11 @@ router.get('/:id', withAuth, (req, res) => {
       {
         model: Review,
         include: {
-          Model: User,
-          attributes: ['username'],
+          Model: User
         },
       },
       {
-        model: User,
-        attributes: ['username'],
+        model: User
       },
     ],
   })

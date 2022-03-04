@@ -3,153 +3,77 @@ mapboxgl.accessToken =
 "pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg";
 const map = new mapboxgl.Map({
 container: "map", //Container ID
-style: "mapbox://styles/olopez92084/cky6s06631d4p15o1kb7ut2qq", //style URL
+style: "mapbox://styles/mapbox/streets-v11", //style URL
 center: [-77.03653127987717, 38.89876926362938], // starting position
 zoom: 14, // starting zoom
 });
 
-var markers = {
-    type: 'FeatureCollection',
-    features: [{
-      type: 'Feature',
-      geometry: {
-        type: 'Marker',
-        coordinates: [-77.0312, 38.9111]
-      },
-      properties: {
-        title: 'Port-A-John',
-        location: 'Q st NW'
-      }
-    },
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.0444, 38.937]
-  },
-  properties: {
-    title: 'Port-A-John',
-    location: "Pinay Branch Park"
-  }
-},
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.0454, 38.941]
-  },
-  properties: {
-    title: 'Public Restroom',
-    location: "Upshur St NW"
-  }
-},
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.03653127987717, 38.89876926362938]
-  },
-  properties: {
-    title: 'Public Restroom',
-    location: "White House B/R"
-  }
-},
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.03853127987717, 38.89976926362938]
-  },
-  properties: {
-    title: 'Public Restroom',
-    location: "Blair House Office"
-  }
-},
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.03823127987717, 38.89676926362938]
-  },
-  properties: {
-    title: 'Public Restroom',
-    location: "Eisenhower Office Complex"
-  }
-},
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.040167, 38.896114]
-  },
-  properties: {
-    title: 'Portable',
-    location: "NY Ave NW"
-  }
-},
-{
-  type: 'Feature',
-  geometry: {
-    type: 'Marker',
-    coordinates: [-77.04, 38.931]
-  },
-  properties: {
-    title: 'Public Restroom',
-    location: "Kilbourne Pl NW"
-  }
-}
-]
-};
-
-async function fetchBathrooms(markers){
+async function getBathrooms() {
   const response = await fetch('/api/bathrooms')
-  // const bathrooms = await response.json()
-  //  markers.features.forEach( (markers, bathrooms) =>{
-  //   markers.properties.id = bathrooms.bathroom_id;
-  //   })
+  const data = await response.json()
+  console.log(data)// this works
+
+  const bathrooms = data.data.map(bathroom=> { // this doesnt
+    return {
+      type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        bathroom.lon,
+        bathroom.lat
+      ]
+    },
+    properties: {
+      marker_id: bathroom.id,
+      icon: 'toilet.jiff'
+    }}
+  })
+  console.log(bathrooms)
+  loadMap(bathrooms)
 }
 
 
 //on map load // add bathroom id to each marker
-// may not need a marker model, just add lat and lon to bathroom 
-// in this case get all bathrooms and render markers with lat and lon from bathrooms
-map.on('load', () => {
-  /* Add the data to your map as a layer */
-
-  map.addLayer({
-    id: 'locations',
-    type: '',
-    /* Add a GeoJSON source containing place coordinates and information. */
-    source: {
-      type: 'geojson',
-      data: markers
-    }
+// in this case get all bathrooms and render markers with lat and lon and id from bathrooms
+async function loadMap(bathrooms){
+  map.on('load', () => {
+    /* Add the data to your map as a layer */
+    map.addLayer({
+      id: 'locations',
+      type: 'symbol',
+      /* Add a GeoJSON source containing place coordinates and information. */
+      source: {
+        type: 'geojson',
+        data: bathrooms
+      }
+    });
   });
-});
+}
+
 
 
 
 
 //add markers to map
-geojson.features.forEach(function(marker) {
-  console.log(marker.geometry.coordinates)
-  //create a html element for each feature
-  var el = document.createElement('div');
-  el.className = 'marker';
-//make a marker for each feature and add to the map
-new mapboxgl.Marker(el)
-.setLngLat(marker.geometry.coordinates)
-.setPopup(new mapboxgl.Popup({ offset: 25 })
-.setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.location + '</p>'))
-.addTo(map);
-});
+// markers.features.forEach(function(marker) {
+//   console.log(marker.geometry.coordinates)
+//   //create a html element for each feature
+//   var el = document.createElement('div');
+//   el.className = 'marker';
+// //make a marker for each feature and add to the map
+// new mapboxgl.Marker(el)
+// .setLngLat(marker.geometry.coordinates)
+// .setPopup(new mapboxgl.Popup({ offset: 25 })
+// .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.location + '</p>'))
+// .addTo(map);
+// });
 
 map.addControl(new mapboxgl.NavigationControl());
 
 
 
 //layer needs to match layer name wih markers 
-map.on('click', 'layer', (e)=> {
+map.on('click', 'locations', (e)=> {
 // make get request to bathroom
 // pass in bathroom id 
 //display on the right: bathroom and reviews
@@ -176,18 +100,6 @@ new mapboxgl.Marker(el)
 
 
 
-
-
-map.on('mousemove', (e) => {
-  //document.getElementById('info').innerHTML =
-  // `e.point` is the x, y coordinates of the `mousemove` event
-  // relative to the top-left corner of the map.
-  JSON.stringify(e.point) +
-  '<br />' +
-  // `e.lngLat` is the longitude, latitude geographical position of the event.
-  JSON.stringify(e.lngLat.wrap());
-  });
-
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
 positionOptions: {
@@ -198,78 +110,4 @@ trackUserLocation: true,
 //  Add the control to the map.
 map.addControl(geolocate);
 
-// Set marker options.
-// const marker = new mapboxgl.Marker({
-// color: "red",
-// draggable: false,
-// })
-// .setLngLat([-77.05, 38.90])
-// .addTo(map);
-
-// var marker = new mapboxgl.Marker();
-
-// function add_marker (event) {
-//   var coordinates = event.lngLat;
-//   console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
-//   marker.setLngLat(coordinates).addTo(map);
-// }
-
-// map.on('click', add_marker);
-   
-  // Add the geocoder to the map
-  // map.addControl(geocoder);
-
-// //initiates the series of processes which run once the search is run on the webpage. If a text is entered in the input field, a search is performed
-// var formSubmitHandler = function (event) {
-// // prevent page from refreshing
-// event.preventDefault();
-
-// // get value from input element
-// var cityName = cityInputEl.value.trim();
-// if (/[0-9]/.test(cityName)) {
-//   $("#modal-error").modal("open");
-//   return;
-// }
-
-// if (cityName) {
-//   getCityData(cityName);
-//   localStoring(cityName);
-
-//   cityInputEl.value = "";
-// } else {
-//   //$(document).ready(function () {
-//   $("#modal").modal("open");
-// }
-// };
-
-// var buttonClickHandler = function (event) {
-// // get the city attribute from the clicked element
-// var city = event.target.getAttribute("data-city");
-
-// if (city) {
-//   getCity(city);
-// }
-// };
-
-// var getCityData = function (city) {
-// var city = cityInputEl.value.trim();
-
-// if (city) {
-//   getCity(city);
-// }
-// };
-
-//sets map to Point of Interest and plants a marker
-
-// const mapGeo = L.mapbox.map('map_geo')
-//   .setView([37.8, -96], 4)
-//   .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/light-v10'));
-
-// const myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapGeo);
-// mapGeo.scrollWheelZoom.disable();
-
-// map.jumpTo({
-//     center: [data.point.lon, data.point.lat],
-//     zoom: 17,
-//   });
-//   marker.setLngLat([data.point.lon, data.point.lat]);
+getBathrooms()
