@@ -120,11 +120,10 @@ new mapboxgl.Marker(el)
 map.addControl(new mapboxgl.NavigationControl());
 
 //on map load // add bathroom id to each marker
-// get request to the markers which includes bathroom (attr: id)
 // may not need a marker model, just add lat and lon to bathroom 
 // in this case get all bathrooms and render markers with lat and lon from bathrooms
 
-//layer needs to match layer name
+//layer needs to match layer name wih markers 
 map.on('click', 'layer', (e)=> {
 // make get request to bathroom
 // pass in bathroom id 
@@ -132,23 +131,28 @@ map.on('click', 'layer', (e)=> {
   // will also include input and post 
 
 })
-// markers array
-// render the markers by iteratting through the array when we opne the map
-map.on('contextmenu', (e)=> {
+
+map.on('contextmenu', async (e)=> {
   console.log(e.lngLat)
-  const {lng, lat} = e.lngLat
+  const {lng, lat} = await e.lngLat
   const coords = [lng, lat]
-  // fetch post to map markers
+  //make a marker for each feature and add to the map
+  // open right hand modal with post
+  // fetch post to bathroom
   //req.body would be lnglat object
   var el = document.createElement('div');
   el.className = 'marker';
-//make a marker for each feature and add to the map
 new mapboxgl.Marker(el)
 .setLngLat(coords)
-.setPopup(new mapboxgl.Popup({ offset: 25 }))
-.setHTML('<p>test bathroom</p>')
+// .setPopup(new mapboxgl.Popup({ offset: 25 }))
+// .setHTML('<p>test bathroom</p>')
 .addTo(map);
 })
+
+
+
+
+
 map.on('mousemove', (e) => {
   //document.getElementById('info').innerHTML =
   // `e.point` is the x, y coordinates of the `mousemove` event
