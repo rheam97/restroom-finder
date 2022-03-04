@@ -345,6 +345,16 @@ const popup = new mapboxgl.Popup({ closeOnClick: true })
 )
 .addTo(map);
 }
+
+map.on('mousemove', (e) => {
+  document.getElementById('info').innerHTML =
+  JSON.stringify(e.lngLat) +
+  '<br />' 
+  // +
+  // // `e.lngLat` is the longitude, latitude geographical position of the event.
+  // JSON.stringify(e.lngLat.wrap());
+  });
+
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
 positionOptions: {
