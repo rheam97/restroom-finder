@@ -8,12 +8,13 @@ const map = new mapboxgl.Map({
 });
 
 async function getBathrooms() {
+// may need to pass in window.location here instead
+//because this is on home page and home page fetches all bathrooms
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
-  console.log(data); // this works
+  console.log(data)
 
   const bathrooms = data.map((bathroom) => {
-// this works
     return {
       type: 'Feature',
       geometry: {
@@ -22,7 +23,7 @@ async function getBathrooms() {
       },
       properties: {
         marker_id: bathroom.id,
-        // icon: 'toilet.jiff' // not sure about this
+        icon: 'toilet' // not sure about this
       },
     };
   });
@@ -34,48 +35,39 @@ async function getBathrooms() {
 // in this case get all bathrooms and render markers with lat and lon and id from bathrooms
 async function loadMap(bathrooms) {
   map.on('load', () => {
+
+    //need to find sutiable image url
+// map.loadImage('https://flyclipart.com/download-toilet-paper-icon-png-clipart-toilet-paper-clip-art-treasure-map-clipart-432284', (error, image) => {
+// if (error) throw error;
+// // Add the loaded image to the style's sprite with the ID 'kitten'.
+// map.addImage('toilet', image);
+// });
     /* Add the data to your map as a layer */
     map.addLayer({
-      id: 'locations',
-      type: 'circle', // this works
-      /* Add a GeoJSON source containing place coordinates and information. */
+      id: 'points',
+      type: 'circle', // change this to symbol when we figure out image
       source: {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
           features: bathrooms
-      }, // this doesnt work with icon yet
+        }
+      },
       // layout: {
-      //   'icon-image': '{icon}-15',
+      //   'icon-image': 'toilet',
       //   'icon-size': 1.5,
       //   'text-field': '{storeId}',
       //   'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       //   'text-offset': [0, 0.9],
       //   'text-anchor': 'top'
-      // },
-    }
-    });
-  });
+      // }
+    })
+  })
 }
 
-//add markers to map
-// markers.features.forEach(function(marker) {
-//   console.log(marker.geometry.coordinates)
-//   //create a html element for each feature
-//   var el = document.createElement('div');
-//   el.className = 'marker';
-// //make a marker for each feature and add to the map
-// new mapboxgl.Marker(el)
-// .setLngLat(marker.geometry.coordinates)
-// .setPopup(new mapboxgl.Popup({ offset: 25 })
-// .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.location + '</p>'))
-// .addTo(map);
-// });
-
-map.addControl(new mapboxgl.NavigationControl());
 
 //layer needs to match layer name wih markers
-map.on('click', 'locations', (e) => {
+map.on('click', 'points', (e) => {
   // make get request to bathroom
   // pass in bathroom id
   //display on the right: bathroom and reviews
@@ -108,5 +100,6 @@ const geolocate = new mapboxgl.GeolocateControl({
 });
 //  Add the control to the map.
 map.addControl(geolocate);
+map.addControl(new mapboxgl.NavigationControl());
 
 getBathrooms();
