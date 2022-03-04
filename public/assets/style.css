@@ -42,7 +42,7 @@
   }
   
   body {
-    color: #404040;
+    color: rgb(15, 15, 15);
     font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 0;
@@ -87,8 +87,8 @@
   }
 
   .heading {
-    background: #fff;
-    border-bottom: 1px solid #eee;
+    background: brown;
+    border-bottom: 1px solid rgb(8, 8, 8);
     height: 60px;
     line-height: 60px;
     padding: 0 10px;
@@ -114,14 +114,14 @@
   
   .listings .item .title {
     display: block;
-    color: #00853e;
+    color: brown;
     font-weight: 700;
   }
   
   .listings .item .title small { font-weight: 400; }
   
   .listings .item.active .title,
-  .listings .item .title:hover { color: #8cc63f; }
+  .listings .item .title:hover { color: brown; }
   
   .listings .item.active {
     background-color: #f8f8f8;
@@ -139,45 +139,48 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #00853e;
+    background: brown;
     border-radius: 0;
   }
-
+ 
   /* Marker tweaks */
-.mapboxgl-popup-close-button {
+  .mapboxgl-popup {
+    padding-bottom: 50px;
+  }
+
+  .mapboxgl-popup-close-button {
     display: none;
   }
-  
   .mapboxgl-popup-content {
-    font: 400 12px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
     padding: 0;
     width: 180px;
   }
-  
-  .mapboxgl-popup-content h3 p {
-    background: #c94949;
-    color: rgb(10, 10, 10);
+  .mapboxgl-popup-content h3 {
+    font: 400 12px/15px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+    background: brown;
+    color: #fff;
     margin: 0;
-    padding: 10px;
+    padding: 5px;
     border-radius: 3px 3px 0 0;
-    font-weight: 500;
-    margin-top: -15px;
+    font-weight: 700;
+    margin-top: -10px;
   }
-  
+
   .mapboxgl-popup-content h4 {
+    font: 400 12px/15px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 10px;
     font-weight: 400;
   }
-  
+
   .mapboxgl-popup-content div {
     padding: 10px;
   }
-  
+
   .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
     margin-top: 15px;
   }
-  
+
   .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
-    border-bottom-color: #c94949;
+    border-bottom-color: #91c949;
   }
