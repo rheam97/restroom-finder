@@ -1,24 +1,28 @@
 const router = require('express').Router()
 const sequelize = require('../config/connection')
-const {Review, User, Map, Bathroom} = require('../models')
+const {Review, User, Bathroom} = require('../models')
 
 
 // non loggedin users homepage gets all markers on the map
 router.get('/', (req,res)=> {
     console.log(req.session)
-    Map.findAll({
-        // attributes: ['id', 'title', 'lat', 'lon', 'gendered',
-        // 'unisex',
-        // 'disabled_access',
-        // 'changing_tables',
-        // 'key',
-        // 'menstruation_products'],
-        // include: [
-        //     {
-        //         model: Review,
-        //         attributes: ['id', 'review_rating']
-        //     }
-        // ]
+    Bathroom.findAll({
+        attributes: ['id', 'title', 'lat', 'lon', 'gendered',
+        'unisex',
+        'disabled_access',
+        'changing_tables',
+        'key',
+        'menstruation_products'],
+        include: [
+            {
+                model: Review,
+                attributes: ['id', 'review_rating'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            }
+        ]
         
     }).then(dbMarkerData=> {
         const markers = dbMarkerData.map(marker=> marker.get({plain: true}))

@@ -14,6 +14,14 @@ Bathroom.init({
         type: DataTypes.STRING,
         allowNull: false,
       },
+      lat: {
+        type: DataTypes.NUMBER,
+        allowNull: false
+    }, 
+    lon: {
+        type: DataTypes.NUMBER,
+        allowNull: false
+    },
       image_url: {
           type: DataTypes.STRING,
           allowNull: true,

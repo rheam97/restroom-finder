@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Review, User, Bathroom, Map } = require('../../models');
+const { Review, User, Bathroom} = require('../../models');
 const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 
