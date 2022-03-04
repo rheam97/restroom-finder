@@ -305,13 +305,6 @@ details.innerHTML = `${store.properties.city}`;
 // details.innerHTML += ` &middot; ${store.properties.phoneFormatted}`;
 // }
  
-/**
-* Listen to the element and when it is clicked, do four things:
-* 1. Update the `currentFeature` to the store associated with the clicked link
-* 2. Fly to the point
-* 3. Close all other popups and display popup for clicked store
-* 4. Highlight listing in sidebar (and remove highlight for all other listings)
-**/
 link.addEventListener('click', function () {
 for (const feature of stores.features) {
 if (this.id === `link-${feature.properties.id}`) {
