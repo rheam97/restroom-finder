@@ -1,3 +1,5 @@
+
+
 mapboxgl.accessToken =
   'pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg';
 const map = new mapboxgl.Map({
@@ -63,11 +65,8 @@ async function loadMap(markers) {
     //   console.log(
     //     `A click event has occurred on a visible portion of the poi-label layer at ${e.lngLat}`
     //   );
-    //   // const response = await fetch(`api/bathroom/{marker_id}`)
-    //   // make get request to bathroom
-    //   // pass in bathroom id
-    //   //display on the right: bathroom and reviews
-    //   // will also include input and post
+    //  
+    //  
     // });
     // map.on('mouseenter', 'points', () => {
     //   map.getCanvas().style.cursor = 'pointer';
@@ -85,10 +84,23 @@ async function loadMap(markers) {
     /* Create a div element for the marker. */
     const el = document.createElement('div');
     /* Assign a unique `id` to the marker. */
-    el.id = `marker-${marker.properties.marker_id}`;
+    el.id = `${marker.properties.marker_id}`;
     /* Assign the `marker` class to each marker for styling. */
     el.className = 'marker';
-     
+    
+     // **make get request to bathroom with click event on marker
+      //   //display on the right: bathroom and reviews
+    //   // pass in bathroom id
+    //   // will also include input and post
+    el.addEventListener('click', async(e)=> {
+    // *** render right hand display
+    // will have to pass this data into html on right hand display
+     const response = await fetch(`api/bathrooms/${el.id}`)
+     const data = await response.json().catch(err=> response.json(err))
+     console.log(data)
+   
+     e.stopPropagation()
+    })
     /**
     * Create a marker using the div element
     * defined above and add it to the map.
@@ -96,6 +108,7 @@ async function loadMap(markers) {
     new mapboxgl.Marker(el, { offset: [0, -23] })
     .setLngLat(marker.geometry.coordinates)
     .addTo(map)}}
+
 }
 
 
@@ -108,7 +121,11 @@ map.on('contextmenu', async (e) => {
   // open right hand modal with post
   // fetch post to bathroom
   //req.body would be lnglat object
-  var el = document.createElement('div');
+  // req.body.title would be fetch to 
+//https://api.mapbox.com/geocoding/v5/{mapbox.places}/{longitude},{latitude}/{address}.json
+
+
+var el = document.createElement('div');
   el.className = 'marker';
   new mapboxgl.Marker(el)
     .setLngLat(coords)

@@ -38,8 +38,8 @@ router.get('/', (req, res) => {
   });
 })
 
-//get all reviews on one bathroom
-router.get('/:id', withAuth, (req, res) => {
+//get all reviews on one bathroom // add withauth later
+router.get('/:id', (req, res) => {
   Bathroom.findOne({
     where: {
       id: req.params.id,
@@ -61,7 +61,7 @@ router.get('/:id', withAuth, (req, res) => {
       {
         model: Review,
         include: {
-          Model: User
+          model: User
         },
       },
       {
@@ -71,9 +71,7 @@ router.get('/:id', withAuth, (req, res) => {
   })
     .then((dbBathroomData) => {
       if (!dbBathroomData) {
-        res
-          .sendStatus(404)
-          .json({ message: 'No bathroom found with this id.' });
+        res.sendStatus(404).json({ message: 'No bathroom found with this id.' });
         return;
       }
       res.json(dbBathroomData);
