@@ -46,40 +46,59 @@ async function loadMap(markers) {
     // map.addImage('toilet', image);
     // });
     /* Add the data to your map as a layer */
-    map.addLayer({
-      id: 'points',
-      type: 'circle', // change this to symbol when we figure out image
-      source: {
-        type: 'geojson',
-        data: markers,
-      } //**** doesnt seem to be recognizing points layer for other purposes */
-      // layout: {
-      //   'circle-radius': '5',
-      //   'circle-color': '#000000'
-      // }
-    });
-    map.on('click', 'points', async (e) => {
-      console.log(
-        `A click event has occurred on a visible portion of the poi-label layer at ${e.lngLat}`
-      );
-      // const response = await fetch(`api/bathroom/{marker_id}`)
-      // make get request to bathroom
-      // pass in bathroom id
-      //display on the right: bathroom and reviews
-      // will also include input and post
-    });
-    map.on('mouseenter', 'points', () => {
-      map.getCanvas().style.cursor = 'pointer';
-    });
+    // map.addLayer({
+    //   id: 'points',
+    //   type: 'Marker', // change this to symbol when we figure out image
+    //   source: {
+    //     type: 'geojson',
+    //     data: markers,
+    //   } //**** doesnt seem to be recognizing points layer for other purposes */
+    //   // layout: {
+    //   //   'circle-radius': '5',
+    //   //   'circle-color': '#000000'
+    //   // }
+    // })
+    addMarkers()
+    // map.on('click', 'points', async (e) => {
+    //   console.log(
+    //     `A click event has occurred on a visible portion of the poi-label layer at ${e.lngLat}`
+    //   );
+    //   // const response = await fetch(`api/bathroom/{marker_id}`)
+    //   // make get request to bathroom
+    //   // pass in bathroom id
+    //   //display on the right: bathroom and reviews
+    //   // will also include input and post
+    // });
+    // map.on('mouseenter', 'points', () => {
+    //   map.getCanvas().style.cursor = 'pointer';
+    // });
 
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'points', () => {
-      map.getCanvas().style.cursor = '';
-    });
+    // // Change it back to a pointer when it leaves.
+    // map.on('mouseleave', 'points', () => {
+    //   map.getCanvas().style.cursor = '';
+    // });
   });
+  function addMarkers() {
+    /* For each feature in the GeoJSON object above: */
+    for (const marker of markers.features) {
+    console.log(`these are the marker features ${JSON.stringify(marker)}`)
+    /* Create a div element for the marker. */
+    const el = document.createElement('div');
+    /* Assign a unique `id` to the marker. */
+    el.id = `marker-${marker.properties.marker_id}`;
+    /* Assign the `marker` class to each marker for styling. */
+    el.className = 'marker';
+     
+    /**
+    * Create a marker using the div element
+    * defined above and add it to the map.
+    **/
+    new mapboxgl.Marker(el, { offset: [0, -23] })
+    .setLngLat(marker.geometry.coordinates)
+    .addTo(map)}}
 }
 
-//layer needs to match layer name wih markers
+
 
 map.on('contextmenu', async (e) => {
   console.log(e.lngLat);
