@@ -41,42 +41,28 @@ async function getBathrooms() {
 // in this case get all bathrooms and render markers with lat and lon and id from bathrooms
 async function loadMap(markers) {
   map.on('load', () => {
-    //need to find suitable image url w/o cors error
-    // map.loadImage('', (error, image) => {
-    // if (error) throw error;
-    // // Add the loaded image to the style's sprite with the ID 'kitten'.
-    // map.addImage('toilet', image);
-    // });
-    /* Add the data to your map as a layer */
-    // map.addLayer({
-    //   id: 'points',
-    //   type: 'Marker', // change this to symbol when we figure out image
-    //   source: {
-    //     type: 'geojson',
-    //     data: markers,
-    //   } //**** doesnt seem to be recognizing points layer for other purposes */
-    //   // layout: {
-    //   //   'circle-radius': '5',
-    //   //   'circle-color': '#000000'
-    //   // }
-    // })
     addMarkers()
-    // map.on('click', 'points', async (e) => {
-    //   console.log(
-    //     `A click event has occurred on a visible portion of the poi-label layer at ${e.lngLat}`
-    //   );
-    //  
-    //  
-    // });
-    // map.on('mouseenter', 'points', () => {
-    //   map.getCanvas().style.cursor = 'pointer';
-    // });
+  })
+  map.on('contextmenu', async(e)=> {
+    console.log(e.lngLat);
+    const { lng, lat } = await e.lngLat;
+    const coords = [lng, lat];
+    console.log(coords)
+    //make a marker  add to the map
+    var newel = document.createElement('div');
+    newel.className = 'marker';
+    new mapboxgl.Marker(newel)
+      .setLngLat(coords)
+      // .setPopup(new mapboxgl.Popup({ offset: 25 }))
+      // .setHTML('<p>test bathroom</p>')
+      .addTo(map);
 
-    // // Change it back to a pointer when it leaves.
-    // map.on('mouseleave', 'points', () => {
-    //   map.getCanvas().style.cursor = '';
-    // });
-  });
+    // open right hand modal with post
+    // fetch post to bathroom
+    //req.body would be lnglat object
+    // req.body.title would be fetch to 
+  //https://api.mapbox.com/geocoding/v5/{mapbox.places}/{longitude},{latitude}/{address}.json
+  })
   function addMarkers() {
     /* For each feature in the GeoJSON object above: */
     for (const marker of markers.features) {
@@ -88,10 +74,10 @@ async function loadMap(markers) {
     /* Assign the `marker` class to each marker for styling. */
     el.className = 'marker';
     
-     // **make get request to bathroom with click event on marker
-      //   //display on the right: bathroom and reviews
-    //   // pass in bathroom id
-    //   // will also include input and post
+     //**make get request to bathroom with click event on marker
+        //display on the right: bathroom and reviews
+      // pass in bathroom id
+      // will also include input and post
     el.addEventListener('click', async(e)=> {
     // *** render right hand display
     // will have to pass this data into html on right hand display
@@ -107,32 +93,12 @@ async function loadMap(markers) {
     **/
     new mapboxgl.Marker(el, { offset: [0, -23] })
     .setLngLat(marker.geometry.coordinates)
-    .addTo(map)}}
+    .addTo(map)}
+  }
 
 }
 
 
-
-map.on('contextmenu', async (e) => {
-  console.log(e.lngLat);
-  const { lng, lat } = await e.lngLat;
-  const coords = [lng, lat];
-  //make a marker for each feature and add to the map
-  // open right hand modal with post
-  // fetch post to bathroom
-  //req.body would be lnglat object
-  // req.body.title would be fetch to 
-//https://api.mapbox.com/geocoding/v5/{mapbox.places}/{longitude},{latitude}/{address}.json
-
-
-var el = document.createElement('div');
-  el.className = 'marker';
-  new mapboxgl.Marker(el)
-    .setLngLat(coords)
-    // .setPopup(new mapboxgl.Popup({ offset: 25 }))
-    // .setHTML('<p>test bathroom</p>')
-    .addTo(map);
-});
 
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
