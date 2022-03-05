@@ -17,6 +17,7 @@ router.post('/', withAuth, (req, res)=> {
             req.session.loggedIn = true;
 
             res.json(dbUserData)
+            res.render('login')
         })
     })
     .catch(err=> {
