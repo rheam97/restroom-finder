@@ -1,5 +1,3 @@
-
-
 mapboxgl.accessToken =
   'pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg';
 const map = new mapboxgl.Map({
@@ -25,7 +23,7 @@ async function getBathrooms() {
       },
       properties: {
         marker_id: bathroom.id,
-        icon: 'toilet', // not sure about this
+        icon: 'toilet', 
       },
     };
   });
@@ -41,28 +39,45 @@ async function getBathrooms() {
 // in this case get all bathrooms and render markers with lat and lon and id from bathrooms
 async function loadMap(markers) {
   map.on('load', () => {
+    // on load, add markers with info from bathroom model
     addMarkers()
   })
+  // on right click, add a marker, trigger modal with input, and pass lat and lon of e into post 
   map.on('contextmenu', async(e)=> {
     console.log(e.lngLat);
     const { lng, lat } = await e.lngLat;
     const coords = [lng, lat];
     console.log(coords)
     //make a marker  add to the map
-    var newel = document.createElement('div');
+    const newel = document.createElement('div');
     newel.className = 'marker';
     new mapboxgl.Marker(newel)
       .setLngLat(coords)
-      // .setPopup(new mapboxgl.Popup({ offset: 25 }))
-      // .setHTML('<p>test bathroom</p>')
       .addTo(map);
 
-    // open right hand modal with post
-    // fetch post to bathroom
-    //req.body would be lnglat object
-    // req.body.title would be fetch to 
-  //https://api.mapbox.com/geocoding/v5/{mapbox.places}/{longitude},{latitude}/{address}.json
+      //*** cant store this permanently and need to display it on map because of terms */
+    // const response = await fetch(`https://api.mapbox.com/geocoding/v5/{mapbox.places}/${lng},${lat}/{address}.json`)
+    // const address = await response.json()
+    // console.log(address)
+
+    // open right hand modal with click, modal will contain input form
+        //req.body would be lnglat object
+    // ****DOM references for input form (booleans) go in body as well
+  //   async function postBathroom(lon, lat){
+  //     const response = await fetch('/api/bathrooms/', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //           lon,
+  //           lat,
+  //       }),
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       }
+  //     })
+  //   }
+  //  postBathroom(lng, lat)
   })
+
   function addMarkers() {
     /* For each feature in the GeoJSON object above: */
     for (const marker of markers.features) {
@@ -74,10 +89,10 @@ async function loadMap(markers) {
     /* Assign the `marker` class to each marker for styling. */
     el.className = 'marker';
     
-     //**make get request to bathroom with click event on marker
-        //display on the right: bathroom and reviews
+     //make get request to bathroom with click event on marker
+      //**** make data display on the right: bathroom and reviews
       // pass in bathroom id
-      // will also include input and post
+      // *** modal will also include input and post
     el.addEventListener('click', async(e)=> {
     // *** render right hand display
     // will have to pass this data into html on right hand display
@@ -87,17 +102,13 @@ async function loadMap(markers) {
    
      e.stopPropagation()
     })
-    /**
-    * Create a marker using the div element
-    * defined above and add it to the map.
-    **/
+    /**Create a marker using the div element defined above and add it to the map.**/
     new mapboxgl.Marker(el, { offset: [0, -23] })
     .setLngLat(marker.geometry.coordinates)
     .addTo(map)}
   }
 
 }
-
 
 
 // Initialize the GeolocateControl.
@@ -111,6 +122,5 @@ const geolocate = new mapboxgl.GeolocateControl({
 map.addControl(geolocate);
 map.addControl(new mapboxgl.NavigationControl());
 
-// need a modal function to be called when points layer is clicked into as well as map layer
 
 getBathrooms();
