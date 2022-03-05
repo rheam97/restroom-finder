@@ -3,8 +3,8 @@ const userRoutes = require('./user-routes')
 const reviewRoutes = require('./review-routes')
 router.use('/users', userRoutes)
 router.use('/reviews', reviewRoutes)
-const markerRoutes = require('./marker-routes');
+const bathroomRoutes = require('./bathroom-routes');
 
-router.use('/markers', markerRoutes);
+router.use('/bathrooms', bathroomRoutes);
 
 module.exports= router

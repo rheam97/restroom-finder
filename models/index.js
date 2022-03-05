@@ -1,31 +1,48 @@
 const User = require('./User');
 const Review = require('./Review');
-const Marker = require('./Marker');
+const Bathroom = require('./Bathroom');
 
-User.hasMany(Review, {
+
+// user has many review
+//Review belongs to one User
+
+//Bathroom has many reviews
+//Reviews belongs to bathroom
+
+//Map has One bathroom
+//Bathroom belongs to map
+
+//User has many Map (or Marker)
+//Map belongs to user????
+
+
+ User.hasMany(Review, {
   foreignKey: 'user_id',
-});
+ });
 
 Review.belongsTo(User, {
   foreignKey: 'user_id',
 });
 
-User.belongsToMany(Marker, {
+
+Bathroom.belongsToMany(User, {
   through: Review,
-  foreignKey: 'user_id',
+  foreignKey: 'bathroom_id',
 });
 
-Marker.belongsToMany(User, {
-  through: Review,
-  foreignKey: 'marker_id',
+User.belongsToMany(Bathroom, {
+through: Review,
+foreignKey: 'user_id'
+})
+
+Bathroom.hasMany(Review, {
+  foreignKey: 'bathroom_id',
+  onDelete: 'SET NULL'
 });
 
-Marker.hasMany(Review, {
-  foreignKey: 'marker_id',
-});
+Review.belongsTo(Bathroom, {
+    foreignKey: 'bathroom_id',
+  });
 
-Review.belongsTo(Marker, {
-  foreignKey: 'marker_id',
-});
 
-module.exports = { User, Review, Marker };
+module.exports = { User, Review, Bathroom};

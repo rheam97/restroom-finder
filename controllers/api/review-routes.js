@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Review, User, Marker } = require('../../models');
+const { Review, User, Bathroom} = require('../../models');
 const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 
@@ -15,11 +15,11 @@ router.get('/', (req, res) => {
       'id',
       'review_rating',
       'review_text',
+      'created_at'
     ],
     include: [
       {
-        model: Marker,
-        attributes: ['id', 'title']
+        model:  Bathroom,
       },
       { // check to see if attr is needed
         model: User
@@ -43,7 +43,7 @@ router.post('/', withAuth, (req, res) => {
   Review.create({
     review_rating: req.body.review_rating,
     review_text: req.body.review_text,
-    marker_id: req.body.marker_id, // will need to changed this to srid
+    bathroom_id: req.body.bathroom_id,
     user_id: req.session.user_id
   }).then(() => {
     return Review.findOne({
@@ -55,11 +55,12 @@ router.post('/', withAuth, (req, res) => {
         'review_rating',
         'review_text',
         'user_id',
+        'created_at'
       ],
       include: [
         {
-          model: Marker,
-          attributes: ['id', 'title', 'image_url', 'lat', 'lon','gendered',
+          model: Bathroom,
+          attributes: ['id', 'title', 'image_url', 'gendered',
           'unisex',
           'disabled_access',
           'changing_tables',
@@ -88,10 +89,9 @@ router.get('/:id', withAuth, (req, res)=> {
         where: {
             id: req.params.id
         }, // this is what is returned to the front
-        attributes: ['id', 'review_text', 'review_rating', 'user_id', 'marker_id'],
+        attributes: ['id', 'review_text', 'review_rating', 'user_id', 'bathroom_id'],
         include:[{
-            model: Marker,
-            attributes: ['id', 'title'],  // may need to add attr.
+            model: Bathroom,  // may need to add attr.
             include: {
                 model: User,
                 attributes: ['username']
