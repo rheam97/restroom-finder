@@ -8,11 +8,11 @@ const map = new mapboxgl.Map({
 });
 
 async function getBathrooms() {
-// may need to pass in window.location here instead
-//because this is on home page and home page fetches all bathrooms
+  // may need to pass in window.location here instead
+  //because this is on home page and home page fetches all bathrooms
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
-  console.log(data)
+  console.log(data);
 
   const bathrooms = data.map((bathroom) => {
     return {
@@ -23,56 +23,63 @@ async function getBathrooms() {
       },
       properties: {
         marker_id: bathroom.id,
-        icon: 'toilet' // not sure about this
+        icon: 'toilet', // not sure about this
       },
     };
   });
   console.log(bathrooms);
-  loadMap(bathrooms);
+  const markers = {
+    type: 'FeatureCollection',
+    features: bathrooms,
+  };
+  loadMap(markers);
 }
 
 //on map load // add bathroom id to each marker
 // in this case get all bathrooms and render markers with lat and lon and id from bathrooms
-async function loadMap(bathrooms) {
+async function loadMap(markers) {
   map.on('load', () => {
-
-    //need to find sutiable image url
-// map.loadImage('https://flyclipart.com/download-toilet-paper-icon-png-clipart-toilet-paper-clip-art-treasure-map-clipart-432284', (error, image) => {
-// if (error) throw error;
-// // Add the loaded image to the style's sprite with the ID 'kitten'.
-// map.addImage('toilet', image);
-// });
+    //need to find suitable image url w/o cors error
+    // map.loadImage('', (error, image) => {
+    // if (error) throw error;
+    // // Add the loaded image to the style's sprite with the ID 'kitten'.
+    // map.addImage('toilet', image);
+    // });
     /* Add the data to your map as a layer */
     map.addLayer({
       id: 'points',
       type: 'circle', // change this to symbol when we figure out image
       source: {
         type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: bathrooms
-        }
-      },
+        data: markers,
+      } //**** doesnt seem to be recognizing points layer for other purposes */
       // layout: {
-      //   'icon-image': 'toilet',
-      //   'icon-size': 1.5,
-      //   'text-field': '{storeId}',
-      //   'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      //   'text-offset': [0, 0.9],
-      //   'text-anchor': 'top'
+      //   'circle-radius': '5',
+      //   'circle-color': '#000000'
       // }
-    })
-  })
+    });
+    map.on('click', 'points', async (e) => {
+      console.log(
+        `A click event has occurred on a visible portion of the poi-label layer at ${e.lngLat}`
+      );
+      // const response = await fetch(`api/bathroom/{marker_id}`)
+      // make get request to bathroom
+      // pass in bathroom id
+      //display on the right: bathroom and reviews
+      // will also include input and post
+    });
+    map.on('mouseenter', 'points', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'points', () => {
+      map.getCanvas().style.cursor = '';
+    });
+  });
 }
 
-
 //layer needs to match layer name wih markers
-map.on('click', 'points', (e) => {
-  // make get request to bathroom
-  // pass in bathroom id
-  //display on the right: bathroom and reviews
-  // will also include input and post
-});
 
 map.on('contextmenu', async (e) => {
   console.log(e.lngLat);
@@ -101,5 +108,7 @@ const geolocate = new mapboxgl.GeolocateControl({
 //  Add the control to the map.
 map.addControl(geolocate);
 map.addControl(new mapboxgl.NavigationControl());
+
+// need a modal function to be called when points layer is clicked into as well as map layer
 
 getBathrooms();
