@@ -3,9 +3,9 @@
 //logout
 // get user reviews
 // add review
-const router = require('express').Router()
-const sequelize = require('../config/connection')
-const {Review, User, Marker} = require('../models')
+// const router = require('express').Router()
+// const sequelize = require('../config/connection')
+// const {Review, User, Marker} = require('../models')
 
 // login post user
 async function loginFormHandler(event){
@@ -124,7 +124,7 @@ async function userReviewHandler(event){
 
 // add dom refrence and listener for get user reviews
 // ***change selector for post form
-document.querySelector('.new-post-form').addEventListener('submit', newReviewHandler)
-document.querySelector('.signup-form').addEventListener('submit', signupFormHandler)
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
-document.querySelector('#logout').addEventListener('click', logout)
+// document.querySelector('.new-post-form').addEventListener('submit', newReviewHandler)
+// document.querySelector('.signup-form').addEventListener('submit', signupFormHandler)
+// document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+// document.querySelector('#logout').addEventListener('click', logout)
