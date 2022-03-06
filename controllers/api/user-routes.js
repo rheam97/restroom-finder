@@ -3,8 +3,20 @@ const {Review, User, Bathroom} = require('../../models')
 const withAuth = require('../../utils/auth.js')
 const sequelize = require('../../config/connection')
 
+
+router.get('/', (req, res)=> {
+    User.findAll({
+        attributes: { exclude: ['password'] }
+      })
+    .then(dbUserData => res.json(dbUserData))
+    .catch(err=> {
+        console.log(err)
+        res.status(500).json(err)
+    })
+})
+
 // create new user
-router.post('/', withAuth, (req, res)=> {
+router.post('/', (req, res)=> {
     User.create({
         username: req.body.username,
         email: req.body.email,
@@ -17,7 +29,7 @@ router.post('/', withAuth, (req, res)=> {
             req.session.loggedIn = true;
 
             res.json(dbUserData)
-            res.render('login')
+          
         })
     })
     .catch(err=> {
@@ -27,7 +39,7 @@ router.post('/', withAuth, (req, res)=> {
 })
 
 // log in user
-router.post('/login', (req,res)=> {
+router.post('/login', withAuth, (req,res)=> {
     console.log('*')
     console.log(req.body);
     User.findOne({

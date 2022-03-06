@@ -34,6 +34,10 @@ router.get('/', (req, res) => {
         ]
       }).then((dbBathroomData) => {
         res.json(dbBathroomData)
+        const bathrooms = dbBathroomData.map(bathroom=> bathroom.get({plain: true}))
+        res.render('homepage', {
+            bathrooms,
+            loggedIn: req.session.loggedIn})
   }).catch((err) => {
       console.log(err);
       res.status(500).json(err);
