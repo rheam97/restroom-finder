@@ -1,7 +1,4 @@
 //DOM references in homepage
-
-
-
 mapboxgl.accessToken =
   'pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg';
 const map = new mapboxgl.Map({
