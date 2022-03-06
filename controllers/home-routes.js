@@ -6,7 +6,6 @@ const { Review, User, Bathroom } = require('../models');
 // non loggedin users homepage gets all markers on the map
 // get all bathrooms on map load
 router.get('/', (req, res) => {
-    console.log('**success');
     res.render('homepage')
  })
 

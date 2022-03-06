@@ -41,7 +41,7 @@ router.post('/', (req, res)=> {
 // log in user
 router.post('/login', withAuth, (req,res)=> {
     console.log('*')
-    console.log(req.body);
+    console.log('here is the session', req.session);
     User.findOne({
         where: {
             email: req.body.email
@@ -64,7 +64,6 @@ router.post('/login', withAuth, (req,res)=> {
             res.json({user: dbUserData, message: 'You are now logged in!'})
            
         })
-        console.log('******', req.session)
 })
 })
 
