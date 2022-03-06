@@ -1,3 +1,7 @@
+//DOM references in homepage
+
+
+
 mapboxgl.accessToken =
   'pk.eyJ1Ijoib2xvcGV6OTIwODQiLCJhIjoiY2t5NnI2MDlqMG42ZTJvcWkybGtobW92ZyJ9.07gsbcPupXhcC_7Wf4_BGg';
 const map = new mapboxgl.Map({
@@ -99,6 +103,7 @@ async function loadMap(markers) {
      const response = await fetch(`api/bathrooms/${el.id}`)
      const data = await response.json().catch(err=> response.json(err))
      console.log(data)
+     
    
      e.stopPropagation()
     })

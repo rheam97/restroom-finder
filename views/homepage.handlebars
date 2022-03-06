@@ -1,46 +1,17 @@
 <div class="columns">
     <section class="column main-map">
-        <div id= 'map'>
+        <div id= "map">
             {{!-- map goes here --}}
         </div>
     </section>
-    <section class="column is-one-quarter side-bar">
+    <section class="column is-one-quarter side-bar is-invisible">
         {{!-- {{> sidebar bathroom, also we need two of these one for the post and another for the get by id}} {{!said sidebar could not be found upon load}} --}}
-        <div class="side-bar-info">
-            <div class="restroom-name">
-                {{bathroom.title}}
-                </div>
-                {{!-- check image url --}}
-            <img src={{bathroom.image_url}} alt="Restroom pic">
-            <div class="address-bar">
-                {{bathroom.address}}
-            </div>
-                <div class="pictogram">
-                    {{bathroom.gendered}}
-                    {{bathroom.unisex}}
-                    {{bathroom.disabled_access}}
-                    {{bathroom.key}}
-                    {{bathroom.changing_tables}}
-                    {{bathroom.menstruation_products}}
-                </div>
-            <div class="rating">
-                <p>Rating:</p> 
-                <span class="score">
-                <!-- function returning average score should go in here -->
-                </span>
-                / 5.0
-            </div>
-            <div class="review-section">
-                <p>Reviews:</p>
-                <ol class="review-list">
-                {{#each reviews as |review|}}
-                <div>
-                    {{> review-list review}}
-                </div>
-                {{/each}}
-                </ol>
-            </div>
-        </div>
-    </section>
+        {{>sidebar bathroom}}
+    </section> 
+        <section class="column is-one-quarter side-bar-post is-invisible">
+        {{!-- {{> sidebar bathroom, also we need two of these one for the post and another for the get by id}} {{!said sidebar could not be found upon load}} --}}
+        {{>sidebarpost}}
+    </section> 
 </div>
+
 <script src='/assets/map.js'></script>

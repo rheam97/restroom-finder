@@ -1,4 +1,4 @@
-<div class="side-bar-info">
+ <div class="side-bar-info">
             <div class="restroom-name">
                 {{bathroom.title}}
                 </div>
@@ -25,7 +25,7 @@
             <div class="review-section">
                 <p>Reviews:</p>
                 <ol class="review-list">
-                {{#each reviews as |review|}}
+                {{#each bathroom.reviews}}
                 <div>
                     {{> review-list review}}
                 </div>
@@ -33,3 +33,5 @@
                 </ol>
             </div>
         </div>
+
+   <script src='/assets/map.js'></script>

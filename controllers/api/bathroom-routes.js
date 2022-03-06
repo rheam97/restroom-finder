@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
 })
 
 //get all reviews on one bathroom // add withauth later
-router.get('/:id', (req, res) => {
+router.get('/:id', withAuth, (req, res) => {
   Bathroom.findOne({
     where: {
       id: req.params.id,
@@ -74,7 +74,7 @@ router.get('/:id', (req, res) => {
         res.sendStatus(404).json({ message: 'No bathroom found with this id.' });
         return;
       }
-      res.json(dbBathroomData);
+      res.json(dbBathroomData); ///render sidebar.handlebars
     })
     .catch((err) => {
       console.log(err);
