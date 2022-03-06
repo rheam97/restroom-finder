@@ -51,3 +51,7 @@
     color: #222;
     background: #fff;
     }
+
+  .side-bar-info {
+    display: hidden;
+  }

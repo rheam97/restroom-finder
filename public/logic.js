@@ -24,7 +24,7 @@ async function loginFormHandler(event){
  if(response.ok){
     response.text().then(data => {
        console.log(data)});
-    document.location.replace('/dashboard')
+    document.location.replace('/')
       }else {
           alert(response.statusText)
      }
@@ -47,7 +47,7 @@ if(username && email && password){
         headers: {'Content-Type': 'application/json'}
     })
     if(response.ok) {
-        document.location.replace('/dashboard/');
+        document.location.replace('/');
     }
     else {
         alert(response.statusText)
@@ -94,7 +94,7 @@ async function logout(){
         headers: {'Content-Type': 'application/json'}
     })
     if(response.ok){
-        document.location.replace('/')
+        document.location.replace('/login')
     }else{
         alert(response.statusText)
     }
@@ -125,6 +125,6 @@ async function userReviewHandler(event){
 // add dom refrence and listener for get user reviews
 // ***change selector for post form
 // document.querySelector('.new-post-form').addEventListener('submit', newReviewHandler)
-// document.querySelector('.signup-form').addEventListener('submit', signupFormHandler)
-// document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
-// document.querySelector('#logout').addEventListener('click', logout)
+document.querySelector('.signup-form').addEventListener('submit', signupFormHandler)
+document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+document.querySelector('#logout').addEventListener('click', logout)
