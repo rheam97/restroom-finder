@@ -21,15 +21,18 @@ router.get('/', (req, res) => {
       {
         model:  Bathroom,
       },
-      { // check to see if attr is needed
+      { 
         model: User
       },
     ],
   })
     .then((dbReviewData) => {
+        // if(!dbReviewData){
+        //     res.render('reviewspage', {})
+        // } need error handling or rendering for null data
       const reviews = dbReviewData.map((review) => review.get({ plain: true }));
       console.log(reviews);
-      res.render('', { reviews, loggedIn: true });
+      res.render('reviewspage', { reviews, loggedIn: true });
     })
 
     .catch((err) => {
