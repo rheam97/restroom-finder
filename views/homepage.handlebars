@@ -1,10 +1,28 @@
-<div class="columns">
-    <section class="column main-map">
-        <div id= "map">
-            {{!-- map goes here --}}
-        </div>
+{{!-- <section class="column is-one-quarter side-bar is-invisible">
+        {{> sidebar bathroom}}
     </section>
-  
+     <section class="column is-one-quarter side-bar-post is-invisble">
+        {{> sidebarpost}}
+    </section> --}}
+
+<nav class='columns'>
+  <a href='/' class='column is-1'>Home</a>
+  {{#if loggedIn}}
+    <a href='/api/reviews' class='column is-1'>REVIEWS</a>
+    <button
+      id='logout'
+      class='column is-1 is-offset-8 btn-no-style'
+    >LOGOUT</button>
+    <script src='/logout.js'></script>
+  {{else}}
+    <a href='/login' class='column is-1 is-offset-8 btn-no-style'>Login</a>
+  {{/if}}
+</nav>
+  <div id= "map">
+            {{!-- map goes here --}}
+</div>
+<div class="outout-input">
+{{!--side bar for get by id, add review, and post bathroom here--}}
 </div>
 
 <script src='/assets/map.js'></script>

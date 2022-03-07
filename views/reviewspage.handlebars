@@ -1,4 +1,8 @@
+<a href="/"> &larr; Back to map</a>
 <ol class="">
+    {{#unless reviews.length}}
+    <p>No reviews added yet.</p>
+    {{/unless}}
     {{#each reviews as |review|}}
     <li>
         {{>my-reviews review}}

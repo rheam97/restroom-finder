@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 // get all bathrooms on map load
 router.get('/', (req, res) => {
-  console.log('**success')
+  // console.log('**success')
     Bathroom.findAll({
       attributes: [
         'id',
