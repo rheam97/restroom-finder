@@ -44,7 +44,39 @@ async function loadMap(markers) {
     addMarkers()
   })
   // on right click, add a marker, trigger modal with input, and pass lat and lon of e into post 
-  map.on('contextmenu', async(e)=> {
+  function addMarkers() {
+    /* For each feature in the GeoJSON object above: */
+    for (const marker of markers.features) {
+    console.log(`these are the marker features ${JSON.stringify(marker)}`)
+    /* Create a div element for the marker. */
+    const el = document.createElement('div');
+    /* Assign a unique `id` to the marker. */
+    el.id = `${marker.properties.marker_id}`;
+    /* Assign the `marker` class to each marker for styling. */
+    el.className = 'marker';
+    
+     //make get request to bathroom with click event on marker
+      //**** make data display on the right: bathroom and reviews
+      // pass in bathroom id
+      // *** modal will also include input and post
+    el.addEventListener('click', async(e)=> {
+    // *** render right hand display
+    // will have to pass this data into html on right hand display
+     const response = await fetch(`api/bathrooms/${el.id}`)
+     const data = await response.json().catch(err=> response.json(err))
+     console.log(data)
+     
+   
+     e.stopPropagation()
+    })
+    /**Create a marker using the div element defined above and add it to the map.**/
+    new mapboxgl.Marker(el, { offset: [0, -23] })
+    .setLngLat(marker.geometry.coordinates)
+    .addTo(map)}
+  }
+
+}
+map.on('contextmenu', async(e)=> {
     console.log(e.lngLat);
     const { lng, lat } = await e.lngLat;
     const coords = [lng, lat];
@@ -78,39 +110,6 @@ async function loadMap(markers) {
   //   }
   //  postBathroom(lng, lat)
   })
-
-  function addMarkers() {
-    /* For each feature in the GeoJSON object above: */
-    for (const marker of markers.features) {
-    console.log(`these are the marker features ${JSON.stringify(marker)}`)
-    /* Create a div element for the marker. */
-    const el = document.createElement('div');
-    /* Assign a unique `id` to the marker. */
-    el.id = `${marker.properties.marker_id}`;
-    /* Assign the `marker` class to each marker for styling. */
-    el.className = 'marker';
-    
-     //make get request to bathroom with click event on marker
-      //**** make data display on the right: bathroom and reviews
-      // pass in bathroom id
-      // *** modal will also include input and post
-    el.addEventListener('click', async(e)=> {
-    // *** render right hand display
-    // will have to pass this data into html on right hand display
-     const response = await fetch(`api/bathrooms/${el.id}`)
-     const data = await response.json().catch(err=> response.json(err))
-     console.log(data)
-     
-   
-     e.stopPropagation()
-    })
-    /**Create a marker using the div element defined above and add it to the map.**/
-    new mapboxgl.Marker(el, { offset: [0, -23] })
-    .setLngLat(marker.geometry.coordinates)
-    .addTo(map)}
-  }
-
-}
 
 
 // Initialize the GeolocateControl.
