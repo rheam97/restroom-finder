@@ -21,21 +21,9 @@
         <h1>
         RESTROOM FINDER <img src="./Toilet.png"{{!not loading}} style="height:2rem">
         </h1>
-        <nav class="columns">
-            <a href="/" class="column is-1">Home</a>
-            {{#if loggedIn}}
-            <a href="/reviews" class="column is-1">REVIEWS</a>
-            <button id="logout" class=" column is-1 is-offset-8 btn-no-style">LOGOUT</button>
-            {{else}}
-            <a href="/login" class=" column is-1 is-offset-8 btn-no-style">Login</a> 
-            {{/if}}
-        </nav>
     </header>
     <div class="wrapper">
     <main>
-        <div id= "map">
-            {{!-- map goes here --}}
-        </div>
      {{{ body }}}
     </main>
     <footer>
@@ -43,10 +31,10 @@
       <p>&copy; R.O.W / Last Updated: 03/02/2022</p>
     </footer>
   </div>
-    {{#if loggedIn}}
+    {{!-- {{#if loggedIn}}
   <script src="/logic.js"></script>
-    {{/if}}
-<script src='/assets/map.js'></script>
+    {{/if}} --}}
+{{!-- <script src='/assets/map.js'></script> --}}
 </body>
 
 </html>

@@ -6,7 +6,13 @@ const { Review, User, Bathroom } = require('../models');
 // non loggedin users homepage gets all markers on the map
 // get all bathrooms on map load
 router.get('/', (req, res) => {
-    res.render('homepage')
+    console.log(req.session)
+    // req.session.destroy(()=>{
+    //     res.status(204).end()
+    // })
+    res.render('homepage', {
+        loggedIn: req.session.loggedIn
+    })
  })
 
 // redirects loggedin user to homepage
@@ -16,7 +22,7 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-  res.render('login');
+  res.render('login'); // how to hide map here????
 });
 
 module.exports = router;

@@ -1,2 +1,22 @@
 {{!input form for bathroom post}}
+<section>
+  <h2>Create New Bathroom</h2>
+  <form class="new-post-form">
+    <div>
+      <label for="bathroom-title">Title (Location</label>
+      <input type="text" id="bathroom-title" name="bathroom-title" />
+    </div>
+    <div>
+      <label for="image-url">Image Link</label>
+      <input id="image-url" name="image-url" />
+    </div>
+<input type="checkbox" id="gendered" name="gendered" value="1">
+<label for="gendered"> Male/Female?</label><br>
+<input type="checkbox" id="unisex" name="unisex" value="1">
+<label for="unisex"> Unisex?</label><br>
+<input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+<label for="vehicle3"> I have a boat</label><br>
+    <button type="submit" class="btn">Create</button>
+  </form>
+</section>
 <script src='/assets/map.js'></script>
