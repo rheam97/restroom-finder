@@ -6,7 +6,7 @@
   #map {
     align-items:center;
     display: flex;
-    width: 100vw; 
+    width: 66vw; 
     height: 70vh;
   }
         
@@ -52,6 +52,6 @@
     background: #fff;
     }
 
-  .side-bar-info {
-    display: hidden;
-  }
+.output-input{
+  display: hidden
+}
