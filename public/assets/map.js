@@ -44,7 +44,7 @@ async function loadMap(markers) {
     addMarkers()
   })
   // on right click, add a marker, trigger modal with input, and pass lat and lon of e into post 
-  map.on('contextmenu', async(e)=> {
+  map.on('dblclick', async(e)=> {
     console.log(e.lngLat);
     const { lng, lat } = await e.lngLat;
     const coords = [lng, lat];
