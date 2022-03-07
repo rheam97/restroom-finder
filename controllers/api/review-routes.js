@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
 
 // get all reviews from loggedin user
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
   console.log('**');
   console.log(req.session);
   Review.findAll({
