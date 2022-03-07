@@ -53,5 +53,7 @@
     }
 
 .output-input{
-  display: hidden
+  display: none;
+  width: 33vw;
+  height: 70vh;
 }
