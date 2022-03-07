@@ -14,7 +14,7 @@
       class='column is-1 is-offset-8 btn-no-style'
     >LOGOUT</button>
     <script src='/logout.js'></script>
-  {{else}}
+  {{else}} {{!why does this not always work when logging in after starting server???}}
     <a href='/login' class='column is-1 is-offset-8 btn-no-style'>Login</a>
   {{/if}}
 </nav>
