@@ -1,15 +1,4 @@
-
-{{!-- <section class="column is-one-quarter side-bar is-invisible">
-        {{> sidebar bathroom}}
-    </section>
-     <section class="column is-one-quarter side-bar-post is-invisible">
-        {{> sidebarpost}}
-    </section> --}}
-
-<nav class='wide_screen columns'>
-=======
 <nav class='columns'>
-
   <a href='/' class='column is-1'>Home</a>
   {{#if loggedIn}}
     <a href='/api/reviews' class='column is-1'>REVIEWS</a>
@@ -22,37 +11,13 @@
     <a href='/login' class='column is-1 is-offset-8 btn-no-style'>Login</a>
   {{/if}}
 </nav>
-
-
-  <div id= "map">
-            {{!-- map goes here --}}
-</div>
-
-<div class="outout-input">
-=======
   <div id= "map" data-target= "post-modal">
             {{!-- map goes here --}}
 </div>
 <div class= "output-input">
   
-
 {{!--side bar for get by id, add review, and post bathroom here--}}
-
-
 </div>
-<nav class='mobile_screen columns'>
-  <a href='/' class='column is-1'>H</a>
-  {{#if loggedIn}}
-    <a href='/api/reviews' class='column is-1'>R</a>
-    <button
-      id='logout'
-      class='column is-1 is-offset-8 btn-no-style'
-    >L/O</button>
-    <script src='/logout.js'></script>
-  {{else}} {{!why does this not always work when logging in after starting server???}}
-    <a href='/login' class='column is-1 is-offset-8 btn-no-style'>L/I</a>
-  {{/if}}
-</nav>
 
 {{!--post bathroom here--}}
 <div class="modal" id="post-modal">
