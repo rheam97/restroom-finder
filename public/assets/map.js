@@ -1,6 +1,6 @@
 //DOM references in homepage
 let reviewDisplay = document.querySelector('.output-input');
-let createBathroom = document.getElementById('postBathroom')
+let createBathroom = document.getElementById('postBathroom');
 
 //map access token
 mapboxgl.accessToken =
@@ -13,8 +13,7 @@ const map = new mapboxgl.Map({
 });
 
 async function getBathrooms() {
-  // may need to pass in window.location here instead
-  //because this is on home page and home page fetches all bathrooms
+
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
   console.log(data);
@@ -176,11 +175,10 @@ function bathroomDisplay(data) {
   reviewSubmit.setAttribute('class', 'button');
   reviewSubmit.setAttribute('id', 'reviewSubmit');
 
-  // reviewSubmit.addEventListener('submit', newReviewHandler(inputReview, inputReviewText, data.id, event))
   document.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.id === 'reviewSubmit') {
-      console.log(data.id)
+      console.log(data.id);
       newReviewHandler(inputReview, inputReviewText, data.id);
     }
   });
@@ -205,7 +203,7 @@ function bathroomDisplay(data) {
     reviewsDiv.appendChild(rating);
   }
 }
-// add review post review**** need help with this because its not reading elements because they dont exist
+// add review post review
 async function newReviewHandler(review, text, bathroom_id) {
   ////change these dom references
   const review_rating = review.value;
@@ -223,8 +221,7 @@ async function newReviewHandler(review, text, bathroom_id) {
     },
   });
   if (response.ok) {
-    // not sure about this location
-    document.location.replace('/api/reviews'); // go to user reviews
+    document.location.replace('/api/reviews');
   } else {
     alert(response.statusText);
   }
@@ -250,83 +247,62 @@ map.on('contextmenu', async (e) => {
     console.log($target);
 
     openModal($target);
-    
   });
-  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+  (
+    document.querySelectorAll(
+      '.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button'
+    ) || []
+  ).forEach(($close) => {
     const $target = $close.closest('.modal');
 
     $close.addEventListener('click', () => {
       closeModal($target);
     });
   });
-  document.addEventListener('click', function(e){
-    if(e.target.id==='postBathroom'){
-      postBathroom(lng, lat)
+  document.addEventListener('click', function (e) {
+    if (e.target.id === 'postBathroom') {
+      postBathroom(lng, lat);
     }
-  })
+  });
   //make a marker  add to the map
   const newel = document.createElement('div');
   newel.className = 'marker';
   new mapboxgl.Marker(newel).setLngLat(coords).addTo(map);
-  // postBathroom(lng, lat);
-
-  //*** cant store this permanently and need to display it on map because of terms */
-  // const response = await fetch(`https://api.mapbox.com/geocoding/v5/{mapbox.places}/${lng},${lat}/{address}.json`)
-  // const address = await response.json()
-  // console.log(address)
-
-  // open right hand modal with click, modal will contain input form
-  //req.body would be lnglat object
-  // ****DOM references for input form (booleans) go in body as well
-  //   async function postBathroom(lon, lat){
-  //     const response = await fetch('/api/bathrooms/', {
-  //       method: 'POST',
-  //       body: JSON.stringify({
-  //           lon,
-  //           lat,
-  //       }),
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       }
-  //     })
-  //   }
-  //  postBathroom(lng, lat)
 });
 
 async function postBathroom(lon, lat) {
-  const title =  document.getElementById('bathroom-title').value
-    const image_url = document.getElementById('image-url').value
-  const gendered = document.getElementById('gendered').checked
-  const unisex = document.getElementById('unisex').checked
-  const disabled_access = document.getElementById('disabled').checked
-  const menstruation_products= document.getElementById('period').checked
-  const changing_tables= document.getElementById('baby').checked
-  const key = document.getElementById('key').checked
+  const title = document.getElementById('bathroom-title').value;
+  const image_url = document.getElementById('image-url').value;
+  const gendered = document.getElementById('gendered').checked;
+  const unisex = document.getElementById('unisex').checked;
+  const disabled_access = document.getElementById('disabled').checked;
+  const menstruation_products = document.getElementById('period').checked;
+  const changing_tables = document.getElementById('baby').checked;
+  const key = document.getElementById('key').checked;
 
   const response = await fetch('/api/bathrooms/', {
-          method: 'POST',
-          body: JSON.stringify({
-            title,
-            image_url,
-            gendered,
-            unisex,
-            disabled_access,
-            menstruation_products,
-            changing_tables,
-            key,
-              lon,
-              lat,
-          }),
-          headers: {
-              'Content-Type': 'application/json'
-          }
-        })
-        if (response.ok) {
-          // not sure about this location
-          document.location.replace('/'); 
-        } else {
-          alert(response.statusText);
-        }
+    method: 'POST',
+    body: JSON.stringify({
+      title,
+      image_url,
+      gendered,
+      unisex,
+      disabled_access,
+      menstruation_products,
+      changing_tables,
+      key,
+      lon,
+      lat,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (response.ok) {
+    document.location.replace('/');
+  } else {
+    alert(response.statusText);
+  }
 }
 
 // Initialize the GeolocateControl.
@@ -341,4 +317,3 @@ map.addControl(geolocate);
 map.addControl(new mapboxgl.NavigationControl());
 
 getBathrooms();
-
