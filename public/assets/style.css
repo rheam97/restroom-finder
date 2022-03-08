@@ -45,17 +45,9 @@ header h1 {
   width: fit-content;
   line-height: 1rem;
   padding: 20px;
+  margin-bottom: 15px;
   border-radius: var(--border-radius);
 }
-
-header h1 a:hover {
-  color:white;
-}
-
-header h1 a:visited {
-  color:white;
-}
-
 main {
   flex: 1;
   height: fit-content;
@@ -67,14 +59,11 @@ nav {
   padding: 0 10px 0 30px !important;
   border-radius: var(--border-radius);
   margin: 0 !important;
-  justify-content: space-around;
 }
-
 nav a {
   color: white;
   transition: color .3s;
   padding: 5px 0 5px 0 !important;
-  text-align: center;
 }
 nav a:hover {
   color: var(--primary);
@@ -243,15 +232,8 @@ nav button {
   color: grey;
   background-color: white;
   display:flex;
-  width: 400px;
+  width: fit-content;
   padding: 10px;
-  margin-bottom: 10px;
-}
-
-.log-header {
-  background-color: var(--light-grey);
-  font-weight: 600;
-  font-size: 1.2rem;
 }
 .log-container div {
   margin: 10px 10px 10px 0;
@@ -337,7 +319,7 @@ footer {
   #map {
     align-items:center;
     display: flex;
-    width: 100%; 
+    width: 66vw; 
     height: 70vh;
   }
         
@@ -389,41 +371,3 @@ footer {
   height: 70vh;
   background-color: white;
 }
-
-
-.mobile_screen{
-  display: none !important;
-}
-
-.screen_500 {
-  display: none;
-}
-
-@media screen and (max-width: 1000px) {
-
-  .wide_screen {
-    display: none !important;
-  }
-
-  .mobile_screen{
-    display: flex !important;
-  }
-
-}
-
-@media screen and (max-width: 500px) {
-  .screen_501{
-    display:none;
-  }
-
-  .screen_500 {
-    display: block;
-  }
-
-  header {
-    display: flex !important;
-    justify-content: center !important;
-  }
-}
-
-

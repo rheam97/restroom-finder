@@ -89,9 +89,9 @@ async function userReviewHandler(event) {
   }
 }
 
-// add dom reference and listener for get user reviews
+// add dom refrence and listener for get user reviews
 // ***change selector for post form
 // document.querySelector('.new-post-form').addEventListener('submit', newReviewHandler)
-document.querySelector('.signup-form').addEventListener('click', signupFormHandler);
+document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
 document.querySelector('.login-form').addEventListener('click', loginFormHandler);
 
