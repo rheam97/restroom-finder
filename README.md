@@ -14,13 +14,13 @@
   
   <a name="description"></a>
   ## Description
-  An MVC app that uses sequelize, express.js, handlebars.js,and  Mapbox GL JS to organize, store, and render crowd-sourced location-based and  user review data to and from a map.
+  An MVC app that uses sequelize, express.js, handlebars.js,and  Mapbox GL JS to organize, store, and render crowd-sourced location-based data to and from a map.
 
   Deployed: https://restroom-finder.herokuapp.com/
 
   <a name="install"></a>
   ## Installation
-  Clone the repo. cd into the folder and run the command 'npm i'. Then load the server using 'node server.js'. Open the page atht ehport on the server.js. Otherwise, create an account on the deployed site.
+  Clone the repo. cd into the folder and run the command 'npm i'. Then load the server using 'node server.js'. Open the page on the port listed on the server.js. Otherwise, create an account on the deployed site.
 
   <a name="usage"></a>
   ## Usage
@@ -35,15 +35,14 @@ database based on my impression and the facilities offered.
 
   ```
 Given I sam searching for good restrooms near me
-When I open the app, I am able to see the map markers with basic review information on the map
-When I hover over the marker, the information with rating and icons appears in the popup
-When I search for restrooms
-I am given options within a certain radius 
+When I open the app, THEN I am able to see the map markers with basic review information on the map
+When I click a marker,
+THEN information about the bathroom along with reviews popup in a sidebar 
 When I log into the app
-User authentication will occur and redirect to login if the inputs are not correct
+THEN user authentication will occur and redirect to login if the inputs are not correct
 When I log in with the correct user inputs
-I am able to add markers with reviews and information about the bathroom
-When I add a review, I can add text, give a rating, and check boxes of popular facilities in bathrooms
+THEN I am able to add markers with information about new bathrooms and add reviews to existing marked bathrooms
+When I add a review, THEN I can add text and give a rating
 As a user, I can leave multiple reviews and markers
 I can see that each bathroom can have multiple reviews
 ```
