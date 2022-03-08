@@ -44,8 +44,9 @@ async function getBathrooms() {
 async function loadMap(markers) {
   map.on('load', () => {
     // on load, add markers with info from bathroom model
-    addMarkers();
-  });
+
+    addMarkers()
+  })
 
   function addMarkers() {
     /* For each feature in the GeoJSON object above: */
