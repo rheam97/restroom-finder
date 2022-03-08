@@ -175,7 +175,7 @@ function bathroomDisplay(data) {
   labelReviewText.textContent = 'Comment: ';
   let inputReviewText = document.createElement('textarea');
   inputReviewText.setAttribute('name', 'review-text');
-  inputReviewText.setAttribute('rows', '4');
+  inputReviewText.setAttribute('rows', '1');
   inputReviewText.setAttribute('id', 'text');
 
   let reviewSubmit = document.createElement('button');
