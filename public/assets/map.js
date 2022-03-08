@@ -296,12 +296,12 @@ map.on('contextmenu', async (e) => {
 async function postBathroom(lon, lat) {
   const title =  document.getElementById('bathroom-title').value
     const image_url = document.getElementById('image-url').value
-  const gendered = document.getElementById('gendered').value
-  const unisex = document.getElementById('unisex').value
-  const disabled_access = document.getElementById('disabled').value
-  const menstruation_products= document.getElementById('period').value
-  const changing_tables= document.getElementById('baby').value
-  const key = document.getElementById('key').value
+  const gendered = document.getElementById('gendered').checked
+  const unisex = document.getElementById('unisex').checked
+  const disabled_access = document.getElementById('disabled').checked
+  const menstruation_products= document.getElementById('period').checked
+  const changing_tables= document.getElementById('baby').checked
+  const key = document.getElementById('key').checked
 
   const response = await fetch('/api/bathrooms/', {
           method: 'POST',
