@@ -27,9 +27,6 @@ router.get('/', withAuth, (req, res) => {
     ],
   })
     .then((dbReviewData) => {
-        // if(!dbReviewData){
-        //     res.render('reviewspage', {})
-        // } need error handling or rendering for null data
       const reviews = dbReviewData.map((review) => review.get({ plain: true }));
       console.log(reviews);
       res.render('reviewspage', { reviews, loggedIn: true });
@@ -48,10 +45,10 @@ router.post('/', withAuth, (req, res) => {
     review_text: req.body.review_text,
     bathroom_id: req.body.bathroom_id,
     user_id: req.session.user_id
-  }).then(() => {
-    return Review.findOne({
+  }).then((dbReviewData) => {
+     return Review.findOne({
       where: {
-        id: req.body.review_id,
+        id: dbReviewData.id,
       },
       attributes: [
         'id',
@@ -82,7 +79,7 @@ router.post('/', withAuth, (req, res) => {
     }).then(dbReviewData=> res.json(dbReviewData))
   }).catch(err=> {
       console.log(err)
-      res.sendStatus(500).json(err)
+      res.status(500).json(err)
   })
 });
 
