@@ -58,38 +58,14 @@ async function signupFormHandler(event) {
     }
   }
 }
-// add review post review
-async function newReviewHandler(event) {
-  event.preventDefault();
-  ////change these dom references
-  const review_rating = document.getElementById('rating').value;
-  const review_text = document.querySelector('input[name="review-text"]').value;
 
-  const response = await fetch('/api/reviews', {
-    method: 'POST',
-    body: JSON.stringify({
-      review_rating,
-      review_text,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (response.ok) {
-    // not sure about this location
-    document.location.replace('/reviews'); // go to user reviews
-    output(review_rating);
-  } else {
-    alert(response.statusText);
-  }
-}
 
-// render rating output
-function output(rating) {
-  // render the rating in the specified dom element, update dom element
-  document.getElementById('output').innerHTML = rating;
-  console.log(rating);
-}
+// // render rating output
+// function output(rating) {
+//     // render the rating in the specified dom element, update dom element
+//     document.getElementById('output').innerHTML = rating;
+//     console.log(rating);
+//   }
 
 //*** do we need to import imports in controllers in order to access user session? */
 async function userReviewHandler(event) {

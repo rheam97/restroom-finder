@@ -18,11 +18,51 @@
     <a href='/login' class='column is-1 is-offset-8 btn-no-style'>Login</a>
   {{/if}}
 </nav>
-  <div id= "map">
+  <div id= "map" data-target= "post-modal">
             {{!-- map goes here --}}
 </div>
-<div class="outout-input">
+<div class= "output-input">
+  
 {{!--side bar for get by id, add review, and post bathroom here--}}
 </div>
 
+
+<div class="modal" id="post-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <div class="modal-card-head">
+            <p class="modal-card-title">Restroom Information</p>
+            <button class="delete" aria-label="close"></button>
+          </div>
+          <section class="modal-card-body">
+            <form class="new-post-form">
+              <div>
+                <label for="bathroom-title">Title (Location): </label>
+                <input type="text" id="bathroom-title" name="bathroom-title" />
+              </div>
+              <div>
+                <label for="image-url">Image Link: </label>
+                <input id="image-url" name="image-url" />
+              </div>
+                <input type="checkbox" id="gendered" name="gendered" value="1">
+                <label for="gendered"> Male/Female?</label><br>
+                <input type="checkbox" id="unisex" name="unisex" value="1">
+                <label for="unisex"> Unisex?</label><br>
+                <input type="checkbox" id="disabled" name="disabled" value="1">
+                <label for="disabled"> Disabled Access?</label><br>
+                <input type="checkbox" id="baby" name="baby" value="1">
+                <label for="baby"> Changing Tables?</label><br>
+                <input type="checkbox" id="period" name="period" value="1">
+                <label for="period"> Period Products?</label><br>
+                 <input type="checkbox" id="key" name="key" value="1">
+                <label for="key"> Key</label><br>
+            </form>
+          </section>
+          <footer class="modal-card-foot">
+            <button id= "postBathroom"type="submit" class="button">Create</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
 <script src='/assets/map.js'></script>
