@@ -82,6 +82,7 @@ async function loadMap(markers) {
 }
 
 function bathroomDisplay(data) {
+  console.log(data)
   if ((reviewDisplay.style.display = 'none')) {
     reviewDisplay.style.display = 'block';
   }
@@ -93,6 +94,7 @@ function bathroomDisplay(data) {
   reviewDisplay.appendChild(bathroomDiv);
 
   let title = document.createElement('h2');
+  title.classList.add('restroom-name');
   title.textContent = data.title;
   bathroomDiv.appendChild(title);
 
@@ -101,35 +103,35 @@ function bathroomDisplay(data) {
   if (data.image_url !== null) {
     bathroomDiv.appendChild(image);
   }
+
+  let pictogram = document.createElement('div');
+  pictogram.classList.add('pictogram');
+  bathroomDiv.appendChild(pictogram);
   // need avg rating function
 
   if ((data.changing_tables = true)) {
     let baby_icon = document.createElement('img');
     baby_icon.setAttribute('src', '/assets/images/changing_tables.png');
-    baby_icon.style.display = 'inline';
     baby_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(baby_icon);
+    pictogram.appendChild(baby_icon);
   }
   if ((data.gendered = true)) {
     let gendered_icon = document.createElement('img');
     gendered_icon.setAttribute('src', '/assets/images/gendered.png');
-    gendered_icon.style.display = 'inline';
     gendered_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(gendered_icon);
+    pictogram.appendChild(gendered_icon);
   }
   if ((data.unisex = true)) {
     let unisex_icon = document.createElement('img');
     unisex_icon.setAttribute('src', '/assets/images/unisex.png');
-    unisex_icon.style.display = 'inline';
     unisex_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(unisex_icon);
+    pictogram.appendChild(unisex_icon);
   }
   if ((data.key = true)) {
     let key_icon = document.createElement('img');
     key_icon.setAttribute('src', '/assets/images/key.png');
-    key_icon.style.display = 'inline';
     key_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(key_icon);
+    pictogram.appendChild(key_icon);
   }
   if ((data.menstruation_products = true)) {
     let menstruation_products_icon = document.createElement('img');
@@ -137,9 +139,8 @@ function bathroomDisplay(data) {
       'src',
       '/assets/images/menstruation_products.png'
     );
-    menstruation_products_icon.style.display = 'inline';
     menstruation_products_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(menstruation_products_icon);
+    pictogram.appendChild(menstruation_products_icon);
   }
   if ((data.disabled_access = true)) {
     let disabled_access_icon = document.createElement('img');
@@ -147,15 +148,21 @@ function bathroomDisplay(data) {
       'src',
       '/assets/images/disabled_access.png'
     );
-    disabled_access_icon.style.display = 'inline';
     disabled_access_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(disabled_access_icon);
+    pictogram.appendChild(disabled_access_icon);
   }
+
+
+
   reviewDisplay.appendChild(addReviewDiv);
+
   let formDiv = document.createElement('form');
+  formDiv.classList.add("rating")
+
   let labelReview = document.createElement('label');
   labelReview.setAttribute('for', 'review-rating');
-  labelReview.textContent = 'Rating';
+  labelReview.textContent = 'Rating: ';
+
   let inputReview = document.createElement('input');
   inputReview.setAttribute('name', 'review-rating');
   inputReview.setAttribute('type', 'number');
@@ -165,16 +172,17 @@ function bathroomDisplay(data) {
 
   let labelReviewText = document.createElement('label');
   labelReviewText.setAttribute('for', 'review-text');
-  labelReviewText.textContent = 'Comment';
-  let inputReviewText = document.createElement('input');
+  labelReviewText.textContent = 'Comment: ';
+  let inputReviewText = document.createElement('textarea');
   inputReviewText.setAttribute('name', 'review-text');
-  inputReviewText.setAttribute('type', 'text');
+  inputReviewText.setAttribute('rows', '4');
   inputReviewText.setAttribute('id', 'text');
 
   let reviewSubmit = document.createElement('button');
   reviewSubmit.setAttribute('type', 'submit');
   reviewSubmit.setAttribute('class', 'button');
   reviewSubmit.setAttribute('id', 'reviewSubmit');
+  reviewSubmit.textContent = 'Submit'
 
   // reviewSubmit.addEventListener('submit', newReviewHandler(inputReview, inputReviewText, data.id, event))
   document.addEventListener('click', function (e) {
@@ -193,12 +201,16 @@ function bathroomDisplay(data) {
 
   reviewDisplay.appendChild(reviewsDiv);
   for (i = 0; i < data.reviews.length; i++) {
+
     let username = document.createElement('h4');
     username.textContent = data.reviews[i].user.username;
+
     let reviewText = document.createElement('p');
     reviewText.textContent = data.reviews[i].review_text;
+
     let rating = document.createElement('p');
     rating.textContent = `${data.reviews[i].review_rating}/5`;
+
     reviewsDiv.style.overflow = 'auto';
     reviewsDiv.appendChild(username);
     reviewsDiv.appendChild(reviewText);
@@ -295,13 +307,14 @@ map.on('contextmenu', async (e) => {
 
 async function postBathroom(lon, lat) {
   const title =  document.getElementById('bathroom-title').value
-    const image_url = document.getElementById('image-url').value
-  const gendered = document.getElementById('gendered').value
-  const unisex = document.getElementById('unisex').value
-  const disabled_access = document.getElementById('disabled').value
-  const menstruation_products= document.getElementById('period').value
-  const changing_tables= document.getElementById('baby').value
-  const key = document.getElementById('key').value
+  const image_url = document.getElementById('image-url').value
+
+  const gendered = document.getElementById('gendered').checked
+  const unisex = document.getElementById('unisex').checked
+  const disabled_access = document.getElementById('disabled').checked
+  const menstruation_products= document.getElementById('period').checked
+  const changing_tables= document.getElementById('baby').checked
+  const key = document.getElementById('key').checked
 
   const response = await fetch('/api/bathrooms/', {
           method: 'POST',
@@ -322,8 +335,7 @@ async function postBathroom(lon, lat) {
           }
         })
         if (response.ok) {
-          // not sure about this location
-          document.location.replace('/'); 
+          console.log() 
         } else {
           alert(response.statusText);
         }

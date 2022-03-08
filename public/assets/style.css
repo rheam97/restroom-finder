@@ -89,13 +89,19 @@ nav button {
 .main-map {
   height: 1000px;  
 }
+
+.is-one-quarter {
+  padding: 0 !important;
+}
+
 .side-bar {
   height: 1000px;
+  width: 100%;
+  padding: 10px;
 }
 .side-bar-info {
   background-color: rgb(242, 248, 255);
   height: 100%;
-  padding: 15px;
   border-radius: var(--border-radius);
 }
 .restroom-name {
@@ -112,22 +118,45 @@ nav button {
   padding-bottom: 3px;
 }
 .pictogram {
-  height: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: 5px 0 5px 0;
   background-color: white;
+  width: 100%;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--div_line);
+
 }
 .pictogram img {
-  height: 100%;
+  height: 65px;
+  width: 65px;
+  border: none !important;
 }
 .rating {
-  border-top: 2px solid var(--div_line);
   border-bottom: 2px solid var(--div_line);
+}
+
+.rating label {
+  font-family: var(--main-font);
 }
 .rating p {
   font-weight: 500;
 }
+
+.rating input {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.rating button {
+  background-color: var(--secondary);
+  align-self: center;
+  height: 1.5rem;
+  width: 4rem;
+  color: white;
+}
+
 .score {
   font-size: 2.5rem;
   height:fit-content;
@@ -311,6 +340,11 @@ footer {
   width: 100%;
   border-radius: var(--border-radius);
 }
+
+.home-content {
+  margin: 10px 0 0 0 !important;
+}
+
 .map {
     text-align:center;
     display: flex;
@@ -367,7 +401,7 @@ footer {
 
 .output-input{
   display: none;
-  width: 33vw;
+  width: 100%;
   height: 70vh;
   background-color: white;
 }
