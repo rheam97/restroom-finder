@@ -1,3 +1,4 @@
+
 {{!-- <section class="column is-one-quarter side-bar is-invisible">
         {{> sidebar bathroom}}
     </section>
@@ -6,6 +7,9 @@
     </section> --}}
 
 <nav class='wide_screen columns'>
+=======
+<nav class='columns'>
+
   <a href='/' class='column is-1'>Home</a>
   {{#if loggedIn}}
     <a href='/api/reviews' class='column is-1'>REVIEWS</a>
@@ -14,16 +18,24 @@
       class='column is-1 is-offset-8 btn-no-style'
     >LOGOUT</button>
     <script src='/logout.js'></script>
-  {{else}} {{!why does this not always work when logging in after starting server???}}
+  {{else}} 
     <a href='/login' class='column is-1 is-offset-8 btn-no-style'>Login</a>
   {{/if}}
 </nav>
+
 
   <div id= "map">
             {{!-- map goes here --}}
 </div>
 
 <div class="outout-input">
+=======
+  <div id= "map" data-target= "post-modal">
+            {{!-- map goes here --}}
+</div>
+<div class= "output-input">
+  
+
 {{!--side bar for get by id, add review, and post bathroom here--}}
 
 
@@ -42,4 +54,43 @@
   {{/if}}
 </nav>
 
+{{!--post bathroom here--}}
+<div class="modal" id="post-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <div class="modal-card-head">
+            <p class="modal-card-title">Restroom Information</p>
+            <button class="delete" aria-label="close"></button>
+          </div>
+          <section class="modal-card-body">
+            <form class="new-post-form">
+              <div>
+                <label for="bathroom-title">Title (Location): </label>
+                <input type="text" id="bathroom-title" name="bathroom-title" />
+              </div>
+              <div>
+                <label for="image-url">Image Link: </label>
+                <input id="image-url" name="image-url" />
+              </div>
+                <input type="checkbox" id="gendered" name="gendered"checked=1 >
+                <label for="gendered"> Male/Female?</label><br>
+                <input type="checkbox" id="unisex" name="unisex" checked=1 >
+                <label for="unisex"> Unisex?</label><br>
+                <input type="checkbox" id="disabled" name="disabled" checked=1>
+                <label for="disabled"> Disabled Access?</label><br>
+                <input type="checkbox" id="baby" name="baby" checked=1 >
+                <label for="baby"> Changing Tables?</label><br>
+                <input type="checkbox" id="period" name="period"  checked=1>
+                <label for="period"> Period Products?</label><br>
+                 <input type="checkbox" checked=1 id="key" name="key">
+                <label for="key"> Key</label><br>
+            </form>
+          </section>
+          <footer class="modal-card-foot">
+            <button id= "postBathroom"type="submit" class="button">Create</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
 <script src='/assets/map.js'></script>

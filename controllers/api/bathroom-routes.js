@@ -96,13 +96,15 @@ router.post('/', withAuth, (req, res) => {
     key: req.body.key,
     menstruation_products: req.body.menstruation_products,
   })
-    .then(() => {
-      Bathroom.findOne({
+    .then((dbBathroomData) => {
+      return Bathroom.findOne({
         where: {
-          id: req.body.bathroom_id,
+          id: dbBathroomData.id,
         }, // may need to add attr.
       }).then((dbBathroomData) => {
+        console.log(dbBathroomData)
         res.json(dbBathroomData)
+      
     })
   }).catch((err) => {
       console.log(err);

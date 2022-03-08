@@ -384,8 +384,12 @@ footer {
     }
 
 .output-input{
-  display: hidden
+  display: none;
+  width: 33vw;
+  height: 70vh;
+  background-color: white;
 }
+
 
 .mobile_screen{
   display: none !important;
@@ -421,3 +425,5 @@ footer {
     justify-content: center !important;
   }
 }
+
+
