@@ -7,9 +7,7 @@
   * [Project Description](#description)
   * [Installation](#installation)
   * [Usage](#usage)
-  * [Contribution Guidelines](#contribution-guidelines)
   * [Licensing](#license)
-  * [Testing Instructions](#testing-instructions)
   * [Questions](#questions)
   
   <a name="description"></a>
