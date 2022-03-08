@@ -49,6 +49,15 @@ header h1 {
   margin-bottom: 15px;
   border-radius: var(--border-radius);
 }
+
+header h1 a:hover {
+  color: white
+}
+
+header h1 a:visited {
+  color: white
+}
+
 main {
   flex: 1;
   height: fit-content;
