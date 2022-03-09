@@ -70,7 +70,7 @@ async function loadMap(markers) {
         // will have to pass this data into html on right hand display
         const response = await fetch(`api/bathrooms/${el.id}`);
         const data = await response.json().catch((err) => response.json(err));
-        //  console.log(data)
+        console.log(data)
 
         bathroomDisplay(data);
       });
@@ -104,35 +104,35 @@ function bathroomDisplay(data) {
   }
   // need avg rating function
 
-  if ((data.changing_tables = true)) {
+  if (data.changing_tables = true) {
     let baby_icon = document.createElement('img');
     baby_icon.setAttribute('src', '/assets/images/changing_tables.png');
     baby_icon.style.display = 'inline';
     baby_icon.classList = 'pictogram';
     bathroomDiv.appendChild(baby_icon);
   }
-  if ((data.gendered = true)) {
+  if (data.gendered = true) {
     let gendered_icon = document.createElement('img');
     gendered_icon.setAttribute('src', '/assets/images/gendered.png');
     gendered_icon.style.display = 'inline';
     gendered_icon.classList = 'pictogram';
     bathroomDiv.appendChild(gendered_icon);
   }
-  if ((data.unisex = true)) {
+  if (data.unisex = true) {
     let unisex_icon = document.createElement('img');
     unisex_icon.setAttribute('src', '/assets/images/unisex.png');
     unisex_icon.style.display = 'inline';
     unisex_icon.classList = 'pictogram';
     bathroomDiv.appendChild(unisex_icon);
   }
-  if ((data.key = true)) {
+  if (data.key = true) {
     let key_icon = document.createElement('img');
     key_icon.setAttribute('src', '/assets/images/key.png');
     key_icon.style.display = 'inline';
     key_icon.classList = 'pictogram';
     bathroomDiv.appendChild(key_icon);
   }
-  if ((data.menstruation_products = true)) {
+  if (data.menstruation_products = true) {
     let menstruation_products_icon = document.createElement('img');
     menstruation_products_icon.setAttribute(
       'src',
@@ -301,7 +301,7 @@ async function postBathroom(lon, lat) {
     },
   });
   if (response.ok) {
-    // document.location.replace('/');
+    document.location.replace('/');
     console.log(response)
   } else {
     alert(response.statusText);
