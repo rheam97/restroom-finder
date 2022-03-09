@@ -445,13 +445,17 @@ footer {
     justify-content: center !important;
   }
 
-  .is-one-quarter{
+  .home-content {
+    flex-direction:column;
+  }
+
+  /* .is-one-quarter{
     z-index: 1;
     position: absolute;
     bottom: 15.0rem;
     height:fit-content;
-    width:auto;
-  }
+    width:100%;
+  } */
 }
 
 @media screen and (max-width: 500px) {
