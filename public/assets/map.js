@@ -16,9 +16,11 @@ async function getBathrooms() {
 
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
-  console.log(data);
+console.log(data)
+  
 
   const bathrooms = data.map((bathroom) => {
+    console.log(bathroom.id, bathroom.lon, bathroom.lat)
     return {
       type: 'Feature',
       geometry: {
@@ -73,7 +75,7 @@ async function loadMap(markers) {
         bathroomDisplay(data);
       });
       /**Create a marker using the div element defined above and add it to the map.**/
-      new mapboxgl.Marker(el, { offset: [0, -23] })
+      new mapboxgl.Marker(el, { offset: [0, 0] })
         .setLngLat(marker.geometry.coordinates)
         .addTo(map);
     }
@@ -299,12 +301,14 @@ async function postBathroom(lon, lat) {
     },
   });
   if (response.ok) {
-    document.location.replace('/');
+    // document.location.replace('/');
+    console.log(response)
   } else {
     alert(response.statusText);
   }
 }
-
+//"lat":"38.9266161231845440","lon":"-76.9630289306640100"
+//76.96302893066401, 38.926883211081815
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
   positionOptions: {

@@ -16,11 +16,11 @@ Bathroom.init(
       allowNull: false,
     },
     lat: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL(19, 16),
       allowNull: false,
     },
     lon: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL(19, 16),
       allowNull: false,
     },
     image_url: {

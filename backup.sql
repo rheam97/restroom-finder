@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `bathroom`;
 CREATE TABLE `bathroom` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `lat` float NOT NULL,
-  `lon` float NOT NULL,
+  `lat` decimal(19,16) NOT NULL,
+  `lon` decimal(19,16) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `gendered` tinyint(1) DEFAULT '0',
   `unisex` tinyint(1) DEFAULT '0',
@@ -40,7 +40,7 @@ CREATE TABLE `bathroom` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `bathroom_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `bathroom` (
 
 LOCK TABLES `bathroom` WRITE;
 /*!40000 ALTER TABLE `bathroom` DISABLE KEYS */;
-INSERT INTO `bathroom` VALUES (1,'',38.9091,-77.0069,NULL,0,1,1,1,1,1,8,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(2,'',38.903,-77.063,NULL,1,0,1,1,1,1,6,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(3,'',38.906,-77.0224,NULL,0,1,1,1,1,1,5,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(4,'',38.9151,-77.0569,NULL,1,0,1,1,1,1,4,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(5,'',38.9085,-77.0328,NULL,1,1,1,1,1,1,2,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(6,'',38.9056,-77.0291,NULL,1,0,1,1,1,1,3,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(7,'',38.9047,-77.037,NULL,0,1,1,1,1,1,1,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(8,'',38.9392,-76.9929,NULL,1,1,1,1,1,1,11,'2022-03-08 01:59:04','2022-03-08 01:59:04'),(9,'rhea\'s bathroom',38.9355,-76.9812,NULL,1,1,1,1,1,1,11,'2022-03-08 02:02:28','2022-03-08 02:02:28'),(10,'rhea\'s best bathroom',38.9328,-76.9802,NULL,1,1,1,1,1,1,11,'2022-03-08 02:04:38','2022-03-08 02:04:38'),(11,'the bestest',38.9217,-76.9761,NULL,1,1,1,1,1,1,11,'2022-03-08 02:06:03','2022-03-08 02:06:03'),(12,'the bestest 5',38.9312,-77.008,NULL,0,1,0,1,1,0,11,'2022-03-08 03:38:16','2022-03-08 03:38:16');
+INSERT INTO `bathroom` VALUES (1,'',38.9090640278533900,-77.0069463149400500,NULL,0,1,1,1,1,1,8,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(2,'',38.9029664011229400,-77.0630401580660300,NULL,1,0,1,1,1,1,6,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(3,'',38.9059799492847840,-77.0224376977407300,NULL,0,1,1,1,1,1,5,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(4,'',38.9151180000000000,-77.0569490000000000,NULL,1,0,1,1,1,1,4,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(5,'',38.9085367989268600,-77.0327643350491000,NULL,1,1,1,1,1,1,2,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(6,'',38.9055690184308960,-77.0290678682852500,NULL,1,0,1,1,1,1,3,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(7,'',38.9047471495880500,-77.0370475425690300,NULL,0,1,1,1,1,1,1,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(8,'295',38.9266161231845440,-76.9630289306640100,NULL,1,1,0,1,0,1,11,'2022-03-09 01:22:55','2022-03-09 01:22:55');
 /*!40000 ALTER TABLE `bathroom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,7 +73,7 @@ CREATE TABLE `review` (
   KEY `bathroom_id` (`bathroom_id`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`bathroom_id`) REFERENCES `bathroom` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Nunc rhoncus dui vel sem.',3,1,1,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(2,'Nunc rhoncus dui vel sem.',2,2,2,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(3,'Nunc rhoncus dui vel sem.',4,3,3,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(4,'Nunc rhoncus dui vel sem.',5,4,4,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(5,'Nunc rhoncus dui vel sem.',4,5,5,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(6,'Nunc rhoncus dui vel sem.',2,6,6,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(7,'Nunc rhoncus dui vel sem.',3,7,7,'2022-03-06 02:25:41','2022-03-06 02:25:41'),(8,'',0,11,1,'2022-03-07 22:22:37','2022-03-07 22:22:37'),(10,'this sucks',1,11,2,'2022-03-08 00:55:02','2022-03-08 00:55:02'),(11,'happy',1,11,7,'2022-03-08 00:57:34','2022-03-08 00:57:34'),(14,'im here',1,11,4,'2022-03-08 01:05:00','2022-03-08 01:05:00'),(15,'hello',1,11,6,'2022-03-08 01:08:09','2022-03-08 01:08:09');
+INSERT INTO `review` VALUES (1,'Nunc rhoncus dui vel sem.',3,1,1,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(2,'Nunc rhoncus dui vel sem.',2,2,2,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(3,'Nunc rhoncus dui vel sem.',4,3,3,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(4,'Nunc rhoncus dui vel sem.',5,4,4,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(5,'Nunc rhoncus dui vel sem.',4,5,5,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(6,'Nunc rhoncus dui vel sem.',2,6,6,'2022-03-09 00:56:42','2022-03-09 00:56:42'),(7,'Nunc rhoncus dui vel sem.',3,7,7,'2022-03-09 00:56:42','2022-03-09 00:56:42');
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +109,7 @@ CREATE TABLE `Sessions` (
 
 LOCK TABLES `Sessions` WRITE;
 /*!40000 ALTER TABLE `Sessions` DISABLE KEYS */;
-INSERT INTO `Sessions` VALUES ('2FnCCgWKRJGirkJgB_i45GjA5LH-37w8','2022-03-08 01:36:53','{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"}}','2022-03-07 01:36:53','2022-03-07 01:36:53'),('dX0XSg8lCAYX0pKWxzItYmuVAXQ3IdFJ','2022-03-09 22:22:42','{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"user_id\":11,\"username\":\"rheam\",\"loggedIn\":true}','2022-03-08 03:48:40','2022-03-08 22:22:42'),('hgkqNWxcdCmfp8hjD6CNqP7S3Nb_z66d','2022-03-08 01:36:54','{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"}}','2022-03-07 01:36:53','2022-03-07 01:36:54');
+INSERT INTO `Sessions` VALUES ('QFv-99vN_I-jGu6uks-TYUmH3lyYqwAT','2022-03-10 01:24:17','{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"user_id\":11,\"username\":\"rheam\",\"loggedIn\":true}','2022-03-09 00:54:10','2022-03-09 01:24:17');
 /*!40000 ALTER TABLE `Sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +136,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'jwilloughway1','rmebes1@sogou.com','$2b$10$/muwQgaDUoSPy9u/2G2z8.Oj0MEa9TjxmzabrtUShN.3uPTui74g.'),(2,'djiri4','gmidgley4@weather.com','$2b$10$iAspCvMbkRweQ2i9ETULkuZM673cefa9WPUv/eYiKvUJfgJ7KZIF2'),(3,'msprague5','larnout5@imdb.com','$2b$10$95NogCDn8zFmnzJgdiRmB.TScMvyTxYbTwqvqzjs2kxtssn7BWw1O'),(4,'alesmonde0','nwestnedge0@cbc.ca','$2b$10$PUQSVe9v20u2vt/MkBAvAOXVIFbjCn/jeEhpMbBzX5ordHG83TEaG'),(5,'msabbins8','lmongain8@google.ru','$2b$10$39S3LnLu5dLlhrVdI.c6xOCBD.Rxisj0RCn44P7bX8eeOXf1vq/Si'),(6,'mpergens6','hnapleton6@feedburner.com','$2b$10$byn2ATTBpUxdBNLEFHK.L.DH.msD4m1gq2ryO8SOv6JapKvX8k5u2'),(7,'jmacarthur9','bsteen9@epa.gov','$2b$10$8TFAmQowUw.OlNg.bMgJ8.OFubqL8buStRiU7dBvXPJ5AcjQ8qM9G'),(8,'iboddam2','cstoneman2@last.fm','$2b$10$LsUKCWu.fHxeU4SyPIVu3Od/UConzXmIL9AC8Og5CXvecSlc9d5IW'),(9,'dstanmer3','ihellier3@goo.ne.jp','$2b$10$qmHql.uPxHs8k0MWAxBnb.x7fnsFNnns4KcuKctkA5crDry0gsYSa'),(10,'tpenniell7','kperigo7@china.com.cn','$2b$10$.YKWp9iZmU3MoAZ6QtxGyORFWORs6FzDrIS4u4b8iRCEvnXUFlUe.'),(11,'rheam','rheam97@gmail.com','$2b$10$vUGxfxVANO2dvqwNwjSXq.Ry9w0gSJ.P8Z.FDkJAwJF9HyNKjrCLa');
+INSERT INTO `user` VALUES (1,'djiri4','gmidgley4@weather.com','$2b$10$2wdgi5e/6Apb6qaSU0pyXe1KI4h/uDFWaeZXlcUtMer615iYHZlqm'),(2,'jwilloughway1','rmebes1@sogou.com','$2b$10$.dndA7zkWvEkT/faRVVyOO.4OEu/LXuhjGxMpvzSIhuGUMU6ML7Cy'),(3,'alesmonde0','nwestnedge0@cbc.ca','$2b$10$e5h2LYKxayCSiSDO2daGjeBDozCba7zJGDra8GBrnsKZp.AdB4gkO'),(4,'dstanmer3','ihellier3@goo.ne.jp','$2b$10$i9IKHlHLs1p8rKnHh.zRfOZR/koeYkH5s0E.R962lMyUMWhjznz9e'),(5,'mpergens6','hnapleton6@feedburner.com','$2b$10$NexNOAQCit0vEjUXdfIXM.kZD5GMHwQeLaHt44sbGfQWS8Rp1vqXm'),(6,'iboddam2','cstoneman2@last.fm','$2b$10$O9Y0m9H3ZNpEOESvQSv/IeHXCRPiEKCH2bwbwidpvXhtuJoirr/9C'),(7,'tpenniell7','kperigo7@china.com.cn','$2b$10$9cPg/m.6SjFuMQso.3ohbOZAnZrg/1cbCFEOpoBvCb68bvq7xj8ua'),(8,'msprague5','larnout5@imdb.com','$2b$10$Lv/5R5JtUXQC2puRdC4mYeK1X/orb10X6W8JKzuy1zMO5MPmCLtYS'),(9,'msabbins8','lmongain8@google.ru','$2b$10$tdYpjzCRCmReNIl9NCl1rutJa27wgBusgygkckMXqQVYTr1u1Q/Ti'),(10,'jmacarthur9','bsteen9@epa.gov','$2b$10$B5Jet7KntVOYg6nmD.JB6.CKAROYu4/GlZ7O/CLzvthMikUaFZlke'),(11,'rheam','rheam97@gmail.com','$2b$10$tNGRhZt78VdcOVTiOpy4XuF5vsBCCvdBzsNMIrELAZxpT3EdSw6Vi');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -149,4 +149,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-08 17:35:35
+-- Dump completed on 2022-03-08 20:38:23

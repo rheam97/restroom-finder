@@ -20,8 +20,7 @@ router.post('/', (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
-  })
-    .then((dbUserData) => {
+  }).then((dbUserData) => {
       console.log(dbUserData);
       req.session.save(() => {
         req.session.user_id = dbUserData.id;
@@ -30,8 +29,7 @@ router.post('/', (req, res) => {
 
         res.json(dbUserData);
       });
-    })
-    .catch((err) => {
+    }).catch((err) => {
       console.log(err);
       res.json(500).json(err);
     });
