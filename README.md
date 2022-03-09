@@ -43,7 +43,7 @@ As a user, I can leave multiple reviews and markers and
 I can see that each bathroom can have multiple reviews
 ```
 
-Here is how the app looks: [!image](screenshot.png)
+Here is how the app looks: [image](screenshot.png)
   <a name="license"></a>
   ## Licensing
   This app is licensed under MIT. For more information, click on the badge link above.
