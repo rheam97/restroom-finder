@@ -1,4 +1,11 @@
-<nav class='columns'>
+{{!-- <section class="column is-one-quarter side-bar is-invisible">
+        {{> sidebar bathroom}}
+    </section>
+     <section class="column is-one-quarter side-bar-post is-invisble">
+        {{> sidebarpost}}
+    </section> --}}
+
+<nav class='wide_screen columns'>
   <a href='/' class='column is-1'>Home</a>
   {{#if loggedIn}}
     <a href='/api/reviews' class='column is-1'>REVIEWS</a>
@@ -7,19 +14,37 @@
       class='column is-1 is-offset-8 btn-no-style'
     >LOGOUT</button>
     <script src='/logout.js'></script>
-  {{else}} 
+  {{else}} {{!why does this not always work when logging in after starting server???}}
     <a href='/login' class='column is-1 is-offset-8 btn-no-style'>Login</a>
   {{/if}}
 </nav>
-  <div id= "map" data-target= "post-modal">
-            {{!-- map goes here --}}
-</div>
-<div class= "output-input">
-  
-{{!--side bar for get by id, add review, and post bathroom here--}}
+
+<div class="columns home-content">
+  <div id= "map" data-target= "post-modal" class="column">
+              {{!-- map goes here --}}
+  </div>
+  <div class=" column is-one-quarter ">
+    <div class= "output-input side-bar">
+    
+    {{!--side bar for get by id, add review, and post bathroom here--}}
+    </div>
+  </div>
 </div>
 
-{{!--post bathroom here--}}
+<nav class='mobile_screen columns'>
+  <a href='/' class='column is-1'>H</a>
+  {{#if loggedIn}}
+    <a href='/api/reviews' class='column is-1'>R</a>
+    <button
+      id='logout'
+      class='column is-1 is-offset-8 btn-no-style'
+    >L/O</button>
+    <script src='/logout.js'></script>
+  {{else}} {{!why does this not always work when logging in after starting server???}}
+    <a href='/login' class='column is-1 is-offset-8 btn-no-style'>L/I</a>
+  {{/if}}
+</nav>
+
 <div class="modal" id="post-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -37,6 +62,7 @@
                 <label for="image-url">Image Link: </label>
                 <input id="image-url" name="image-url" />
               </div>
+
                 <input type="checkbox" id="gendered" name="gendered"autocomplete="off">
                 <label for="gendered"> Male/Female?</label><br>
                 <input type="checkbox" id="unisex" name="unisex"  autocomplete="off">

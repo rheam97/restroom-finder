@@ -5,6 +5,7 @@ router.use('/api', apiRoutes)
 router.use('/', homeRoutes)
 
 router.use((req,res)=> {
+    console.log('is here?')
     res.status(404).end()
 })
 module.exports = router

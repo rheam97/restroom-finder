@@ -1,6 +1,6 @@
 //DOM references in homepage
 let reviewDisplay = document.querySelector('.output-input');
-let createBathroom = document.getElementById('postBathroom');
+let createBathroom = document.getElementById('postBathroom')
 
 //map access token
 mapboxgl.accessToken =
@@ -13,7 +13,8 @@ const map = new mapboxgl.Map({
 });
 
 async function getBathrooms() {
-
+  // may need to pass in window.location here instead
+  //because this is on home page and home page fetches all bathrooms
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
 console.log(data)
@@ -83,6 +84,7 @@ async function loadMap(markers) {
 }
 
 function bathroomDisplay(data) {
+  console.log(data)
   if ((reviewDisplay.style.display = 'none')) {
     reviewDisplay.style.display = 'block';
   }
@@ -93,6 +95,7 @@ function bathroomDisplay(data) {
   reviewDisplay.appendChild(bathroomDiv);
 
   let title = document.createElement('h2');
+  title.classList.add('restroom-name');
   title.textContent = data.title;
   bathroomDiv.appendChild(title);
 
@@ -101,35 +104,35 @@ function bathroomDisplay(data) {
   if (data.image_url !== null) {
     bathroomDiv.appendChild(image);
   }
+
+  let pictogram = document.createElement('div');
+  pictogram.classList.add('pictogram');
+  bathroomDiv.appendChild(pictogram);
   // need avg rating function
 
   if (data.changing_tables = true) {
     let baby_icon = document.createElement('img');
     baby_icon.setAttribute('src', '/assets/images/changing_tables.png');
-    baby_icon.style.display = 'inline';
     baby_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(baby_icon);
+    pictogram.appendChild(baby_icon);
   }
   if (data.gendered = true) {
     let gendered_icon = document.createElement('img');
     gendered_icon.setAttribute('src', '/assets/images/gendered.png');
-    gendered_icon.style.display = 'inline';
     gendered_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(gendered_icon);
+    pictogram.appendChild(gendered_icon);
   }
   if (data.unisex = true) {
     let unisex_icon = document.createElement('img');
     unisex_icon.setAttribute('src', '/assets/images/unisex.png');
-    unisex_icon.style.display = 'inline';
     unisex_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(unisex_icon);
+    pictogram.appendChild(unisex_icon);
   }
   if (data.key = true) {
     let key_icon = document.createElement('img');
     key_icon.setAttribute('src', '/assets/images/key.png');
-    key_icon.style.display = 'inline';
     key_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(key_icon);
+    pictogram.appendChild(key_icon);
   }
   if (data.menstruation_products = true) {
     let menstruation_products_icon = document.createElement('img');
@@ -137,9 +140,8 @@ function bathroomDisplay(data) {
       'src',
       '/assets/images/menstruation_products.png'
     );
-    menstruation_products_icon.style.display = 'inline';
     menstruation_products_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(menstruation_products_icon);
+    pictogram.appendChild(menstruation_products_icon);
   }
   if ((data.disabled_access =true)) {
     let disabled_access_icon = document.createElement('img');
@@ -147,15 +149,21 @@ function bathroomDisplay(data) {
       'src',
       '/assets/images/disabled_access.png'
     );
-    disabled_access_icon.style.display = 'inline';
     disabled_access_icon.classList = 'pictogram';
-    bathroomDiv.appendChild(disabled_access_icon);
+    pictogram.appendChild(disabled_access_icon);
   }
+
+
+
   reviewDisplay.appendChild(addReviewDiv);
+
   let formDiv = document.createElement('form');
+  formDiv.classList.add("rating")
+
   let labelReview = document.createElement('label');
   labelReview.setAttribute('for', 'review-rating');
-  labelReview.textContent = 'Rating';
+  labelReview.textContent = 'Rating: ';
+
   let inputReview = document.createElement('input');
   inputReview.setAttribute('name', 'review-rating');
   inputReview.setAttribute('type', 'number');
@@ -165,21 +173,23 @@ function bathroomDisplay(data) {
 
   let labelReviewText = document.createElement('label');
   labelReviewText.setAttribute('for', 'review-text');
-  labelReviewText.textContent = 'Comment';
-  let inputReviewText = document.createElement('input');
+  labelReviewText.textContent = 'Comment: ';
+  let inputReviewText = document.createElement('textarea');
   inputReviewText.setAttribute('name', 'review-text');
-  inputReviewText.setAttribute('type', 'text');
+  inputReviewText.setAttribute('rows', '1');
   inputReviewText.setAttribute('id', 'text');
 
   let reviewSubmit = document.createElement('button');
   reviewSubmit.setAttribute('type', 'submit');
   reviewSubmit.setAttribute('class', 'button');
   reviewSubmit.setAttribute('id', 'reviewSubmit');
+  reviewSubmit.textContent = 'Submit'
 
+  // reviewSubmit.addEventListener('submit', newReviewHandler(inputReview, inputReviewText, data.id, event))
   document.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.id === 'reviewSubmit') {
-      console.log(data.id);
+      console.log(data.id)
       newReviewHandler(inputReview, inputReviewText, data.id);
     }
   });
@@ -192,19 +202,23 @@ function bathroomDisplay(data) {
 
   reviewDisplay.appendChild(reviewsDiv);
   for (i = 0; i < data.reviews.length; i++) {
+
     let username = document.createElement('h4');
     username.textContent = data.reviews[i].user.username;
+
     let reviewText = document.createElement('p');
     reviewText.textContent = data.reviews[i].review_text;
+
     let rating = document.createElement('p');
     rating.textContent = `${data.reviews[i].review_rating}/5`;
+
     reviewsDiv.style.overflow = 'auto';
     reviewsDiv.appendChild(username);
     reviewsDiv.appendChild(reviewText);
     reviewsDiv.appendChild(rating);
   }
 }
-// add review post review
+// add review post review**** need help with this because its not reading elements because they dont exist
 async function newReviewHandler(review, text, bathroom_id) {
   ////change these dom references
   const review_rating = review.value;
@@ -222,7 +236,8 @@ async function newReviewHandler(review, text, bathroom_id) {
     },
   });
   if (response.ok) {
-    document.location.replace('/api/reviews');
+    // not sure about this location
+    document.location.replace('/api/reviews'); // go to user reviews
   } else {
     alert(response.statusText);
   }
@@ -248,38 +263,59 @@ map.on('contextmenu', async (e) => {
     console.log($target);
 
     openModal($target);
+    
   });
-  (
-    document.querySelectorAll(
-      '.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button'
-    ) || []
-  ).forEach(($close) => {
+  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
     const $target = $close.closest('.modal');
 
     $close.addEventListener('click', () => {
       closeModal($target);
     });
   });
-  document.addEventListener('click', function (e) {
-    if (e.target.id === 'postBathroom') {
-      postBathroom(lng, lat);
+  document.addEventListener('click', function(e){
+    if(e.target.id==='postBathroom'){
+      postBathroom(lng, lat)
     }
-  });
+  })
   //make a marker  add to the map
   const newel = document.createElement('div');
   newel.className = 'marker';
   new mapboxgl.Marker(newel).setLngLat(coords).addTo(map);
+  // postBathroom(lng, lat);
+
+  //*** cant store this permanently and need to display it on map because of terms */
+  // const response = await fetch(`https://api.mapbox.com/geocoding/v5/{mapbox.places}/${lng},${lat}/{address}.json`)
+  // const address = await response.json()
+  // console.log(address)
+
+  // open right hand modal with click, modal will contain input form
+  //req.body would be lnglat object
+  // ****DOM references for input form (booleans) go in body as well
+  //   async function postBathroom(lon, lat){
+  //     const response = await fetch('/api/bathrooms/', {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //           lon,
+  //           lat,
+  //       }),
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       }
+  //     })
+  //   }
+  //  postBathroom(lng, lat)
 });
 
 async function postBathroom(lon, lat) {
-  const title = document.getElementById('bathroom-title').value;
-  const image_url = document.getElementById('image-url').value;
-  const gendered = document.getElementById('gendered').checked;
-  const unisex = document.getElementById('unisex').checked;
-  const disabled_access = document.getElementById('disabled').checked;
-  const menstruation_products = document.getElementById('period').checked;
-  const changing_tables = document.getElementById('baby').checked;
-  const key = document.getElementById('key').checked;
+  const title =  document.getElementById('bathroom-title').value
+  const image_url = document.getElementById('image-url').value
+
+  const gendered = document.getElementById('gendered').checked
+  const unisex = document.getElementById('unisex').checked
+  const disabled_access = document.getElementById('disabled').checked
+  const menstruation_products= document.getElementById('period').checked
+  const changing_tables= document.getElementById('baby').checked
+  const key = document.getElementById('key').checked
 
   const response = await fetch('/api/bathrooms/', {
     method: 'POST',
@@ -320,3 +356,4 @@ map.addControl(geolocate);
 map.addControl(new mapboxgl.NavigationControl());
 
 getBathrooms();
+
