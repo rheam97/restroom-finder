@@ -5,45 +5,7 @@ const sequelize = require('../../config/connection');
 // get all bathrooms on map load
 router.get('/', (req, res) => {
   // console.log('**success')
-    Bathroom.findAll({
-      attributes: [
-        'id',
-        'title',
-        'image_url',
-        'lat',
-        'lon',
-        'gendered',
-        'unisex',
-        'disabled_access',
-        'changing_tables',
-        'key',
-        'menstruation_products',
-      ],
-      include: [
-        {
-          model: Review,
-          include: {
-            model: User
-          }
-        },
-        {
-          model: User
-        },
-      ]
-    }).then((dbBathroomData) => {
-      res.json(dbBathroomData)
-}).catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  });
-})
-
-//get all reviews on one bathroom // add withauth later
-router.get('/:id', withAuth, (req, res) => {
-  Bathroom.findOne({
-    where: {
-      id: req.params.id,
-    },
+  Bathroom.findAll({
     attributes: [
       'id',
       'title',
@@ -61,17 +23,46 @@ router.get('/:id', withAuth, (req, res) => {
       {
         model: Review,
         include: {
-          model: User
+          model: User,
         },
       },
       {
-        model: User
+        model: User,
+      },
+    ],
+  })
+    .then((dbBathroomData) => {
+      res.json(dbBathroomData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+//get all reviews on one bathroom // add withauth later
+router.get('/:id', withAuth, (req, res) => {
+  Bathroom.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: Review,
+        include: {
+          model: User,
+        },
+      },
+      {
+        model: User,
       },
     ],
   })
     .then((dbBathroomData) => {
       if (!dbBathroomData) {
-        res.sendStatus(404).json({ message: 'No bathroom found with this id.' });
+        res
+          .sendStatus(404)
+          .json({ message: 'No bathroom found with this id.' });
         return;
       }
       res.json(dbBathroomData); ///render sidebar.handlebars
@@ -102,14 +93,14 @@ router.post('/', withAuth, (req, res) => {
           id: dbBathroomData.id,
         }, // may need to add attr.
       }).then((dbBathroomData) => {
-        console.log(dbBathroomData)
-        res.json(dbBathroomData)
-      
+        console.log(dbBathroomData);
+        res.json(dbBathroomData);
+      });
     })
-  }).catch((err) => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json(err);
-    })
+    });
 });
 
 module.exports = router;

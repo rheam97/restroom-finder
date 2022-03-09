@@ -17,9 +17,11 @@ async function getBathrooms() {
   //because this is on home page and home page fetches all bathrooms
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
-  console.log(data);
+console.log(data)
+  
 
   const bathrooms = data.map((bathroom) => {
+    console.log(bathroom.id, bathroom.lon, bathroom.lat)
     return {
       type: 'Feature',
       geometry: {
@@ -69,12 +71,12 @@ async function loadMap(markers) {
         // will have to pass this data into html on right hand display
         const response = await fetch(`api/bathrooms/${el.id}`);
         const data = await response.json().catch((err) => response.json(err));
-        //  console.log(data)
+        console.log(data)
 
         bathroomDisplay(data);
       });
       /**Create a marker using the div element defined above and add it to the map.**/
-      new mapboxgl.Marker(el, { offset: [0, -23] })
+      new mapboxgl.Marker(el, { offset: [0, 0] })
         .setLngLat(marker.geometry.coordinates)
         .addTo(map);
     }
@@ -87,7 +89,6 @@ function bathroomDisplay(data) {
     reviewDisplay.style.display = 'block';
   }
   reviewDisplay.innerHTML = '';
-
   let bathroomDiv = document.createElement('div');
   let addReviewDiv = document.createElement('div');
   let reviewsDiv = document.createElement('div');
@@ -109,31 +110,31 @@ function bathroomDisplay(data) {
   bathroomDiv.appendChild(pictogram);
   // need avg rating function
 
-  if ((data.changing_tables = true)) {
+  if (data.changing_tables = true) {
     let baby_icon = document.createElement('img');
     baby_icon.setAttribute('src', '/assets/images/changing_tables.png');
     baby_icon.classList = 'pictogram';
     pictogram.appendChild(baby_icon);
   }
-  if ((data.gendered = true)) {
+  if (data.gendered = true) {
     let gendered_icon = document.createElement('img');
     gendered_icon.setAttribute('src', '/assets/images/gendered.png');
     gendered_icon.classList = 'pictogram';
     pictogram.appendChild(gendered_icon);
   }
-  if ((data.unisex = true)) {
+  if (data.unisex = true) {
     let unisex_icon = document.createElement('img');
     unisex_icon.setAttribute('src', '/assets/images/unisex.png');
     unisex_icon.classList = 'pictogram';
     pictogram.appendChild(unisex_icon);
   }
-  if ((data.key = true)) {
+  if (data.key = true) {
     let key_icon = document.createElement('img');
     key_icon.setAttribute('src', '/assets/images/key.png');
     key_icon.classList = 'pictogram';
     pictogram.appendChild(key_icon);
   }
-  if ((data.menstruation_products = true)) {
+  if (data.menstruation_products = true) {
     let menstruation_products_icon = document.createElement('img');
     menstruation_products_icon.setAttribute(
       'src',
@@ -142,7 +143,7 @@ function bathroomDisplay(data) {
     menstruation_products_icon.classList = 'pictogram';
     pictogram.appendChild(menstruation_products_icon);
   }
-  if ((data.disabled_access = true)) {
+  if ((data.disabled_access =true)) {
     let disabled_access_icon = document.createElement('img');
     disabled_access_icon.setAttribute(
       'src',
@@ -317,30 +318,32 @@ async function postBathroom(lon, lat) {
   const key = document.getElementById('key').checked
 
   const response = await fetch('/api/bathrooms/', {
-          method: 'POST',
-          body: JSON.stringify({
-            title,
-            image_url,
-            gendered,
-            unisex,
-            disabled_access,
-            menstruation_products,
-            changing_tables,
-            key,
-              lon,
-              lat,
-          }),
-          headers: {
-              'Content-Type': 'application/json'
-          }
-        })
-        if (response.ok) {
-          console.log() 
-        } else {
-          alert(response.statusText);
-        }
+    method: 'POST',
+    body: JSON.stringify({
+      title,
+      image_url,
+      gendered,
+      unisex,
+      disabled_access,
+      menstruation_products,
+      changing_tables,
+      key,
+      lon,
+      lat,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (response.ok) {
+    document.location.replace('/');
+    console.log(response)
+  } else {
+    alert(response.statusText);
+  }
 }
-
+//"lat":"38.9266161231845440","lon":"-76.9630289306640100"
+//76.96302893066401, 38.926883211081815
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
   positionOptions: {
