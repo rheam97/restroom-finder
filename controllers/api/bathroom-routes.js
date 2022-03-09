@@ -59,9 +59,10 @@ router.get('/:id', withAuth, (req, res) => {
     ],
   })
     .then((dbBathroomData) => {
+      console.log(dbBathroomData)
       if (!dbBathroomData) {
         res
-          .sendStatus(404)
+          .status(404)
           .json({ message: 'No bathroom found with this id.' });
         return;
       }
@@ -75,6 +76,7 @@ router.get('/:id', withAuth, (req, res) => {
 
 // //add marker if logged in
 router.post('/', withAuth, (req, res) => {
+  console.log(req.body)
   Bathroom.create({
     title: req.body.title,
     user_id: req.session.user_id,

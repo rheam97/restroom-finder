@@ -13,8 +13,6 @@ const map = new mapboxgl.Map({
 });
 
 async function getBathrooms() {
-  // may need to pass in window.location here instead
-  //because this is on home page and home page fetches all bathrooms
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
 console.log(data)
@@ -236,7 +234,6 @@ async function newReviewHandler(review, text, bathroom_id) {
     },
   });
   if (response.ok) {
-    // not sure about this location
     document.location.replace('/api/reviews'); // go to user reviews
   } else {
     alert(response.statusText);
@@ -281,29 +278,6 @@ map.on('contextmenu', async (e) => {
   const newel = document.createElement('div');
   newel.className = 'marker';
   new mapboxgl.Marker(newel).setLngLat(coords).addTo(map);
-  // postBathroom(lng, lat);
-
-  //*** cant store this permanently and need to display it on map because of terms */
-  // const response = await fetch(`https://api.mapbox.com/geocoding/v5/{mapbox.places}/${lng},${lat}/{address}.json`)
-  // const address = await response.json()
-  // console.log(address)
-
-  // open right hand modal with click, modal will contain input form
-  //req.body would be lnglat object
-  // ****DOM references for input form (booleans) go in body as well
-  //   async function postBathroom(lon, lat){
-  //     const response = await fetch('/api/bathrooms/', {
-  //       method: 'POST',
-  //       body: JSON.stringify({
-  //           lon,
-  //           lat,
-  //       }),
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       }
-  //     })
-  //   }
-  //  postBathroom(lng, lat)
 });
 
 async function postBathroom(lon, lat) {
