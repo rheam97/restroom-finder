@@ -23,36 +23,35 @@ Bathroom.init(
       type: DataTypes.DECIMAL(19, 16),
       allowNull: false,
     },
+
+    // isUrl and allowNull crash each other
     image_url: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isUrl: true,
-      },
     },
     gendered: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     unisex: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     disabled_access: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     key: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     changing_tables: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     menstruation_products: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     user_id: {
       type: DataTypes.INTEGER,
