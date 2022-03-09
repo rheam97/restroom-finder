@@ -67,9 +67,10 @@ async function loadMap(markers) {
         // *** render right hand display
         e.stopPropagation();
         // will have to pass this data into html on right hand display
-        const response = await fetch(`api/bathrooms/${el.id}`);
+        const response = await fetch(`/api/bathrooms/${el.id}`);
         const data = await response.json().catch((err) => response.json(err));
         console.log(data)
+        console.log(response)
 
         bathroomDisplay(data);
       });
@@ -108,40 +109,37 @@ function bathroomDisplay(data) {
   bathroomDiv.appendChild(pictogram);
   // need avg rating function
 
-  if (data.changing_tables = true) {
+  if (data.changing_tables === 'changingTables') {
     let baby_icon = document.createElement('img');
     baby_icon.setAttribute('src', '/assets/images/changing_tables.png');
     baby_icon.classList = 'pictogram';
     pictogram.appendChild(baby_icon);
   }
-  if (data.gendered = true) {
+  if (data.gendered === 'gendered') {
     let gendered_icon = document.createElement('img');
     gendered_icon.setAttribute('src', '/assets/images/gendered.png');
     gendered_icon.classList = 'pictogram';
     pictogram.appendChild(gendered_icon);
   }
-  if (data.unisex = true) {
+  if (data.unisex === 'unisex') {
     let unisex_icon = document.createElement('img');
     unisex_icon.setAttribute('src', '/assets/images/unisex.png');
     unisex_icon.classList = 'pictogram';
     pictogram.appendChild(unisex_icon);
   }
-  if (data.key = true) {
+  if (data.key === 'key') {
     let key_icon = document.createElement('img');
     key_icon.setAttribute('src', '/assets/images/key.png');
     key_icon.classList = 'pictogram';
     pictogram.appendChild(key_icon);
   }
-  if (data.menstruation_products = true) {
+  if (data.menstruation_products === 'period') {
     let menstruation_products_icon = document.createElement('img');
-    menstruation_products_icon.setAttribute(
-      'src',
-      '/assets/images/menstruation_products.png'
-    );
+    menstruation_products_icon.setAttribute('src', '/assets/images/menstruation_products.png');
     menstruation_products_icon.classList = 'pictogram';
     pictogram.appendChild(menstruation_products_icon);
   }
-  if ((data.disabled_access =true)) {
+  if ((data.disabled_access === 'disabled')) {
     let disabled_access_icon = document.createElement('img');
     disabled_access_icon.setAttribute(
       'src',
@@ -247,21 +245,24 @@ map.on('contextmenu', async (e) => {
   const coords = [lng, lat];
   console.log(coords);
 
+    // define function to open modal
   function openModal($el) {
     $el.classList.add('is-active');
   }
-
+    // define function to close modal
   function closeModal($el) {
     $el.classList.remove('is-active');
   }
+    // elements that have an id of 'map' will be a trigger of the event
   (document.querySelectorAll('#map') || []).forEach(($trigger) => {
     const modal = $trigger.dataset.target;
     const $target = document.getElementById(modal);
     console.log($target);
 
     openModal($target);
-    
   });
+
+    //elements that contain following classes will be closed
   (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
     const $target = $close.closest('.modal');
 
@@ -269,11 +270,20 @@ map.on('contextmenu', async (e) => {
       closeModal($target);
     });
   });
-  document.addEventListener('click', function(e){
-    if(e.target.id==='postBathroom'){
+
+    //select 'create' button of the modal
+  const postingBtn = document.getElementById('postBathroom')
+
+    // A marker will be created when the user click 'create' button
+  postingBtn.addEventListener('click', function(e){
+    const newel = document.createElement('div');
+    newel.className = 'marker';
+    new mapboxgl.Marker(newel).setLngLat(coords).addTo(map);  
       postBathroom(lng, lat)
-    }
   })
+
+
+
   //make a marker  add to the map
   const newel = document.createElement('div');
   newel.className = 'marker';
@@ -284,12 +294,19 @@ async function postBathroom(lon, lat) {
   const title =  document.getElementById('bathroom-title').value
   const image_url = document.getElementById('image-url').value
 
-  const gendered = document.getElementById('gendered').checked
-  const unisex = document.getElementById('unisex').checked
-  const disabled_access = document.getElementById('disabled').checked
-  const menstruation_products= document.getElementById('period').checked
-  const changing_tables= document.getElementById('baby').checked
-  const key = document.getElementById('key').checked
+  const gendered = document.getElementById('gendered').value
+  const unisex = document.getElementById('unisex').value
+  const disabled_access = document.getElementById('disabled').value
+  const menstruation_products= document.getElementById('period').value
+  const changing_tables= document.getElementById('baby').value
+  const key = document.getElementById('key').value
+
+  // console.log(gendered)
+  // console.log(unisex)
+  // console.log(disabled_access)
+  // console.log(menstruation_products)
+  // console.log(changing_tables)
+  // console.log(key)
 
   const response = await fetch('/api/bathrooms/', {
     method: 'POST',
@@ -303,7 +320,7 @@ async function postBathroom(lon, lat) {
       changing_tables,
       key,
       lon,
-      lat,
+      lat
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -311,7 +328,7 @@ async function postBathroom(lon, lat) {
   });
   if (response.ok) {
     document.location.replace('/');
-    console.log(response)
+    // console.log(response)
   } else {
     alert(response.statusText);
   }

@@ -80,6 +80,7 @@ router.post('/', withAuth, (req, res) => {
   Bathroom.create({
     title: req.body.title,
     user_id: req.session.user_id,
+    image_url: req.body.image_url,
     gendered: req.body.gendered,
     lat: req.body.lat,
     lon: req.body.lon,
