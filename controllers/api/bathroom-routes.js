@@ -46,19 +46,6 @@ router.get('/:id', withAuth, (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: [
-      'id',
-      'title',
-      'image_url',
-      'lat',
-      'lon',
-      'gendered',
-      'unisex',
-      'disabled_access',
-      'changing_tables',
-      'key',
-      'menstruation_products',
-    ],
     include: [
       {
         model: Review,

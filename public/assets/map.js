@@ -87,7 +87,6 @@ function bathroomDisplay(data) {
     reviewDisplay.style.display = 'block';
   }
   reviewDisplay.innerHTML = '';
-
   let bathroomDiv = document.createElement('div');
   let addReviewDiv = document.createElement('div');
   let reviewsDiv = document.createElement('div');
@@ -142,7 +141,7 @@ function bathroomDisplay(data) {
     menstruation_products_icon.classList = 'pictogram';
     bathroomDiv.appendChild(menstruation_products_icon);
   }
-  if ((data.disabled_access = true)) {
+  if ((data.disabled_access =true)) {
     let disabled_access_icon = document.createElement('img');
     disabled_access_icon.setAttribute(
       'src',
