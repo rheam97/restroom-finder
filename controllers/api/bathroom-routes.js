@@ -62,7 +62,7 @@ router.get('/:id', withAuth, (req, res) => {
       console.log(dbBathroomData)
       if (!dbBathroomData) {
         res
-          .sendStatus(404)
+          .status(404)
           .json({ message: 'No bathroom found with this id.' });
         return;
       }

@@ -13,8 +13,6 @@ const map = new mapboxgl.Map({
 });
 
 async function getBathrooms() {
-  // may need to pass in window.location here instead
-  //because this is on home page and home page fetches all bathrooms
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
 console.log(data)
@@ -234,7 +232,6 @@ async function newReviewHandler(review, text, bathroom_id) {
     },
   });
   if (response.ok) {
-    // not sure about this location
     document.location.replace('/api/reviews'); // go to user reviews
   } else {
     alert(response.statusText);
@@ -285,6 +282,12 @@ map.on('contextmenu', async (e) => {
       postBathroom(lng, lat)
   })
 
+
+
+  //make a marker  add to the map
+  const newel = document.createElement('div');
+  newel.className = 'marker';
+  new mapboxgl.Marker(newel).setLngLat(coords).addTo(map);
 });
 
 async function postBathroom(lon, lat) {
