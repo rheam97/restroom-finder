@@ -2,14 +2,9 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Review, User, Bathroom } = require('../models');
 
-// may need to get fetch to geojson instead
-// non loggedin users homepage gets all markers on the map
-// get all bathrooms on map load
+
 router.get('/', (req, res) => {
     console.log(req.session)
-    // req.session.destroy(()=>{
-    //     res.status(204).end()
-    // })
     res.render('homepage', {
         loggedIn: req.session.loggedIn
     })
@@ -22,7 +17,7 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-  res.render('login'); // how to hide map here????
+  res.render('login'); 
 });
 
 module.exports = router;

@@ -12,6 +12,8 @@ const map = new mapboxgl.Map({
   zoom: 11, // starting zoom
 });
 
+
+//get bathrooms from db on app load
 async function getBathrooms() {
   const response = await fetch('/api/bathrooms');
   const data = await response.json();
@@ -32,7 +34,7 @@ console.log(data)
       },
     };
   });
-  // console.log(bathrooms);
+  // add bathrooms array to geojson object
   const markers = {
     type: 'FeatureCollection',
     features: bathrooms,
@@ -40,8 +42,7 @@ console.log(data)
   loadMap(markers);
 }
 
-//on map load // add bathroom id to each marker
-// in this case get all bathrooms and render markers with lat and lon and id from bathrooms
+// get all bathrooms and render markers with lat and lon and id from bathrooms
 async function loadMap(markers) {
   map.on('load', () => {
     // on load, add markers with info from bathroom model
@@ -54,7 +55,7 @@ async function loadMap(markers) {
       console.log(`these are the marker features ${JSON.stringify(marker)}`);
       /* Create a div element for the marker. */
       const el = document.createElement('div');
-      /* Assign a unique `id` to the marker. */
+      // add bathroom id to each marker
       el.id = `${marker.properties.marker_id}`;
       /* Assign the `marker` class to each marker for styling. */
       el.className = 'marker';
@@ -62,11 +63,10 @@ async function loadMap(markers) {
       //make get request to bathroom with click event on marker
       //**** make data display on the right: bathroom and reviews
       // pass in bathroom id
-      // *** modal will also include input and post
       el.addEventListener('click', async (e) => {
-        // *** render right hand display
+        // render right hand display
         e.stopPropagation();
-        // will have to pass this data into html on right hand display
+  
         const response = await fetch(`/api/bathrooms/${el.id}`);
         const data = await response.json().catch((err) => response.json(err));
         console.log(data)
@@ -88,6 +88,7 @@ function bathroomDisplay(data) {
     reviewDisplay.style.display = 'block';
   }
   reviewDisplay.innerHTML = '';
+  //refresh sidebar and load bathrom desc, review input form, and review array in divs
   let bathroomDiv = document.createElement('div');
   let addReviewDiv = document.createElement('div');
   let reviewsDiv = document.createElement('div');
@@ -181,7 +182,7 @@ function bathroomDisplay(data) {
   reviewSubmit.setAttribute('id', 'reviewSubmit');
   reviewSubmit.textContent = 'Submit'
 
-  // reviewSubmit.addEventListener('submit', newReviewHandler(inputReview, inputReviewText, data.id, event))
+  // add event listener to target to post a review to db
   document.addEventListener('click', function (e) {
     e.preventDefault();
     if (e.target.id === 'reviewSubmit') {
@@ -196,6 +197,7 @@ function bathroomDisplay(data) {
   formDiv.appendChild(reviewSubmit);
   addReviewDiv.appendChild(formDiv);
 
+  //iterate through existing reviews for bathrom with id and load in divs
   reviewDisplay.appendChild(reviewsDiv);
   for (i = 0; i < data.reviews.length; i++) {
 
@@ -214,9 +216,10 @@ function bathroomDisplay(data) {
     reviewsDiv.appendChild(rating);
   }
 }
-// add review post review**** need help with this because its not reading elements because they dont exist
+
 async function newReviewHandler(review, text, bathroom_id) {
-  ////change these dom references
+  
+  //get value of input dom elements
   const review_rating = review.value;
   const review_text = text.value;
 
@@ -274,7 +277,7 @@ map.on('contextmenu', async (e) => {
     //select 'create' button of the modal
   const postingBtn = document.getElementById('postBathroom')
 
-    // A marker will be created when the user click 'create' button
+    // A marker will be created when the user clicks 'create' button
   postingBtn.addEventListener('click', function(e){
     const newel = document.createElement('div');
     newel.className = 'marker';
@@ -284,12 +287,13 @@ map.on('contextmenu', async (e) => {
 
 
 
-  //make a marker  add to the map
+  //make a marker,  add to the map
   const newel = document.createElement('div');
   newel.className = 'marker';
   new mapboxgl.Marker(newel).setLngLat(coords).addTo(map);
 });
 
+// post to bathroom in db using lat and lon of event
 async function postBathroom(lon, lat) {
   const title =  document.getElementById('bathroom-title').value
   const image_url = document.getElementById('image-url').value
@@ -301,12 +305,6 @@ async function postBathroom(lon, lat) {
   const changing_tables= document.getElementById('baby').value
   const key = document.getElementById('key').value
 
-  // console.log(gendered)
-  // console.log(unisex)
-  // console.log(disabled_access)
-  // console.log(menstruation_products)
-  // console.log(changing_tables)
-  // console.log(key)
 
   const response = await fetch('/api/bathrooms/', {
     method: 'POST',
@@ -328,13 +326,12 @@ async function postBathroom(lon, lat) {
   });
   if (response.ok) {
     document.location.replace('/');
-    // console.log(response)
+
   } else {
     alert(response.statusText);
   }
 }
-//"lat":"38.9266161231845440","lon":"-76.9630289306640100"
-//76.96302893066401, 38.926883211081815
+
 // Initialize the GeolocateControl.
 const geolocate = new mapboxgl.GeolocateControl({
   positionOptions: {

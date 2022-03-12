@@ -88,10 +88,10 @@ router.get('/:id', withAuth, (req, res)=> {
     Review.findOne({
         where: {
             id: req.params.id
-        }, // this is what is returned to the front
+        }, 
         attributes: ['id', 'review_text', 'review_rating', 'user_id', 'bathroom_id'],
         include:[{
-            model: Bathroom,  // may need to add attr.
+            model: Bathroom, 
             include: {
                 model: User,
                 attributes: ['username']

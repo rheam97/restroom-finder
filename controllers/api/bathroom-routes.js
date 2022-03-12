@@ -2,9 +2,10 @@ const router = require('express').Router();
 const { Review, User, Bathroom } = require('../../models');
 const withAuth = require('../../utils/auth.js');
 const sequelize = require('../../config/connection');
+
 // get all bathrooms on map load
 router.get('/', (req, res) => {
-  // console.log('**success')
+
   Bathroom.findAll({
     attributes: [
       'id',
@@ -40,7 +41,7 @@ router.get('/', (req, res) => {
     });
 });
 
-//get all reviews on one bathroom // add withauth later
+//get all reviews on one bathroom 
 router.get('/:id', withAuth, (req, res) => {
   Bathroom.findOne({
     where: {
@@ -66,7 +67,7 @@ router.get('/:id', withAuth, (req, res) => {
           .json({ message: 'No bathroom found with this id.' });
         return;
       }
-      res.json(dbBathroomData); ///render sidebar.handlebars
+      res.json(dbBathroomData); 
     })
     .catch((err) => {
       console.log(err);
@@ -94,7 +95,7 @@ router.post('/', withAuth, (req, res) => {
       return Bathroom.findOne({
         where: {
           id: dbBathroomData.id,
-        }, // may need to add attr.
+        }, 
       }).then((dbBathroomData) => {
         console.log(dbBathroomData);
         res.json(dbBathroomData);
