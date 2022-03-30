@@ -1,5 +1,6 @@
 
   # Restroom Finder
+  Please note: Click events do not render markers in excat location due to map distortion. We plan to fix this int he future as part of a longer term effort to improve and expand the use of this website.
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
