@@ -1,4 +1,5 @@
 {
     "buildCommand": "node server.js",
-    "cleanUrls": true
+    "cleanUrls": true,
+    "outputDirectory": "."
 }
