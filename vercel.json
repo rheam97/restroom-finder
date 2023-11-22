@@ -2,4 +2,6 @@
     "buildCommand": "node server.js",
     "cleanUrls": true,
     "outputDirectory": "."
+
+    
 }
