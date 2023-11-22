@@ -1,5 +1,5 @@
 {
-    "buildCommand": "noder server.js",
+    "buildCommand": "node server.js",
     "cleanUrls": true,
     "outputDirectory": "views/layouts"
 }
