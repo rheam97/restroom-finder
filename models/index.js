@@ -16,33 +16,28 @@ const Bathroom = require('./Bathroom');
 //Map belongs to user????
 
 
- User.hasMany(Review, {
-  foreignKey: 'user_id',
- });
+//  User.hasMany(Review);
 
-Review.belongsTo(User, {
-  foreignKey: 'user_id',
-});
+// Review.belongsTo(User, {
+
+// });
 
 
-Bathroom.belongsToMany(User, {
-  through: Review,
-  foreignKey: 'bathroom_id',
-});
+// Bathroom.belongsToMany(User, {
+//   through: Review,
 
-User.belongsToMany(Bathroom, {
-through: Review,
-foreignKey: 'user_id'
-})
+// });
 
-Bathroom.hasMany(Review, {
-  foreignKey: 'bathroom_id',
-  onDelete: 'SET NULL'
-});
+// User.belongsToMany(Bathroom, {
+// through: Review,
 
-Review.belongsTo(Bathroom, {
-    foreignKey: 'bathroom_id',
-  });
+// })
+
+// Bathroom.hasMany(Review);
+
+// Review.belongsTo(Bathroom, {
+
+//   });
 
 
 module.exports = { User, Review, Bathroom};

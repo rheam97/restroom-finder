@@ -1,15 +1,24 @@
 const Sequelize = require('sequelize');
+const path = require('path');
 
 require('dotenv').config({path: '../.env'});
 
+
+const connection = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
+  host: process.env.DB_HOST,
+};
+
+const connectionString= `mysql://${connection.user}:${connection.password}@${connection.host}/restroom_finder_db`
+
 // create connection to our db ** deleted env user and root
-const sequelize = process.env.JAWSDB_URL
-  ? new Sequelize(process.env.JAWSDB_URL)
-  : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
-      host: 'localhost',
-      dialect: 'mysql',
-      port: 3306
-    });
+const sequelize = new Sequelize(connectionString, { dialect: "mysql2", dialectOptions: { ssl: {} } })
+  // : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
+  //     host: 'localhost',
+  //     dialect: 'mysql',
+  //     port: 3306
+  //   });
 
     async function authenticate(){
       try {
