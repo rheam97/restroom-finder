@@ -1,4 +1,5 @@
-import 'dotenv/config'
+import { configDotenv } from 'dotenv';
+
 const path = require('path');
 
 require('dotenv').config({path: '.env'});
