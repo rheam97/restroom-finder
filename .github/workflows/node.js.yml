@@ -10,8 +10,8 @@ on:
     branches: [ "main" ]
 env:
   DB_USER: z0e8wso9q4nhfhetsh4s
-DB_PW: pscale_pw_3bBbGWUYVNAKE2xHrn5AkuiofTpD05BHadvL2Ad4wD7
-DB_HOST: aws.connect.psdb.cloud
+  DB_PW: pscale_pw_3bBbGWUYVNAKE2xHrn5AkuiofTpD05BHadvL2Ad4wD7
+  DB_HOST: aws.connect.psdb.cloud
 jobs:
   build:
 
