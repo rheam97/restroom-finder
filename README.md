@@ -14,7 +14,7 @@
   <a name="description"></a>
   ## Description
   An MVC app that uses sequelize, express.js, handlebars.js, and  Mapbox GL JS to organize, store, and render crowd-sourced, location-based data to and from a map.
-  Deployed: https://restroom-finder.herokuapp.com/
+  Deployed: **UPDATE: still searching for free hosting service that does app functions in addition to builds
 
   <a name="install"></a>
   ## Installation
